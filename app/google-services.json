@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "307802902138",
+    "project_id": "sochat-569c6",
+    "storage_bucket": "sochat-569c6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:307802902138:android:7a0e1f39f2b58b4974f5c3",
+        "android_client_info": {
+          "package_name": "com.sochat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "307802902138-ilehc4cmgmfeg4qbp6hqmsp3mfb1bsc9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sochat",
+            "certificate_hash": "b16cf524b0da791430cc8c9ec75d44d93b120be4"
+          }
+        },
+        {
+          "client_id": "307802902138-h4ekuborrnpu6jt5j9p9nnd8m8dreuh9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmtEQKmSUBQxsgCc6lJxd20VAFQK5dSLM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "307802902138-h4ekuborrnpu6jt5j9p9nnd8m8dreuh9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
