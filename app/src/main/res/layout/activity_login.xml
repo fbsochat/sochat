@@ -12,9 +12,18 @@
     android:background="@drawable/bg_login"
     tools:context=".activity.LoginActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/front_picure"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="40dp"
+        />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btn_Google"
         android:layout_width="257dp"
         android:layout_height="47dp"
         android:layout_marginBottom="196dp"
@@ -25,7 +34,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btn_Phone"
         android:layout_width="83dp"
         android:layout_height="83dp"
         android:layout_marginTop="16dp"
@@ -33,6 +42,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/btn_Google"
         app:layout_constraintVertical_bias="0.123" />
 </androidx.constraintlayout.widget.ConstraintLayout>
