@@ -26,6 +26,7 @@ import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
@@ -139,6 +140,9 @@ public class OtpActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
+                        FirebaseUser user = authResult.getUser();
+
+                        Toast.makeText(OtpActivity.this,user.getPhoneNumber(), Toast.LENGTH_LONG).show();
 //                            Intent intent = new Intent(OtpActivity.this,MainActivity.class);
                         Intent intent = new Intent(OtpActivity.this,BottonTabActivity.class);
                             startActivity(intent);

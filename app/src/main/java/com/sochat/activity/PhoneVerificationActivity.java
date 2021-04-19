@@ -45,4 +45,15 @@ public class PhoneVerificationActivity extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(auth.getCurrentUser() != null){
+//          Intent intent = new Intent(OtpActivity.this,MainActivity.class);
+//            startActivity(intent);
+            startActivity(new Intent(getApplicationContext(),BottonTabActivity.class));
+            finish();
+        }
+    }
 }
