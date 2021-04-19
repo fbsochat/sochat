@@ -56,11 +56,22 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             >
+            <com.hbb20.CountryCodePicker
+                android:id="@+id/ccP"
+                android:layout_height="50dp"
+                android:layout_width="70dp"
+                android:layout_margin="5dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="@drawable/textview_outline"
+                app:ccpDialog_textColor="@color/black"
+                android:backgroundTint="@color/white"/>
+
             <EditText
                 android:id="@+id/etPhone"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/textview_hight"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ccP"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:padding="10dp"
@@ -68,7 +79,9 @@
                 android:phoneNumber="true"
                 android:hint="Enter Your Phone Number"
                 android:backgroundTint="@color/white"
-                android:layout_margin="5dp"
+                android:layout_marginLeft="80dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
                  />
             <Button
                 android:id="@+id/btnContinue"

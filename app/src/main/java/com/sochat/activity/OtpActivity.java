@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,95 +23,98 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
-import com.mukesh.OnOtpCompletionListener;
-import com.mukesh.OtpView;
 import com.sochat.R;
 
 import java.util.concurrent.TimeUnit;
 
 public class OtpActivity extends AppCompatActivity {
 
-    OtpView otpView;
+    EditText otpView;
     Button verify;
     TextView phonebox;
 
     FirebaseAuth auth;
-    String phonenumber,verificationId;
-    //ProgressDialog progressDialog;
+    String phonenumber, verificationId;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otp);
-        otpView=(OtpView)findViewById(R.id.otp_view);
-        verify=(Button)findViewById(R.id.btn_Verify);
-        phonebox=(TextView)findViewById(R.id.phoneLbl);
+        otpView = (EditText) findViewById(R.id.et_Otp);
+        verify = (Button) findViewById(R.id.btn_Verify);
+        phonebox = (TextView) findViewById(R.id.phoneLbl);
 
-        auth=FirebaseAuth.getInstance();
-
-       /* progressDialog=new ProgressDialog(this);
-        progressDialog.setMessage("Verifying OTP");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
-
-        */
+        auth = FirebaseAuth.getInstance();
 
 
-        phonenumber=getIntent().getStringExtra("PhoneNumber");
-        phonebox.setText("Verify"+phonenumber);
+        phonenumber = getIntent().getStringExtra("PhoneNumber");
+        phonebox.setText("Verify" + phonenumber);
 
-        PhoneAuthOptions options = PhoneAuthOptions.newBuilder(auth)
-                .setPhoneNumber(phonenumber)
-                .setTimeout(60L, TimeUnit.SECONDS)
-                .setActivity(OtpActivity.this)
-                .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+        initiateotp();
+
+        verify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (otpView.getText().toString().isEmpty())
+                    Toast.makeText(OtpActivity.this, "Blank Fild cannot be Processd", Toast.LENGTH_SHORT).show();
+                else if (otpView.getText().toString().length()!=6)
+                    Toast.makeText(OtpActivity.this, "Invalid OTP", Toast.LENGTH_SHORT).show();
+                else {
+                    PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId,otpView.getText().toString());
+                    signInWithPhoneAuthCredential(credential);
+                }
+            }
+        });
+
+
+    }
+
+    private void initiateotp() {
+
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                phonenumber,
+                60L,
+                TimeUnit.SECONDS,
+                this,
+                new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+                    @Override
+                    public void onCodeSent(@NonNull String verificationId , @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                        super.onCodeSent(verificationId, forceResendingToken);
+                    }
+
                     @Override
                     public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+                        signInWithPhoneAuthCredential(phoneAuthCredential);
 
                     }
 
                     @Override
                     public void onVerificationFailed(@NonNull FirebaseException e) {
+                        Toast.makeText(getApplicationContext(),e.getMessage(), Toast.LENGTH_SHORT).show();
 
                     }
-
-                    @Override
-                    public void onCodeSent(@NonNull String VerifyId, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                        super.onCodeSent(VerifyId, forceResendingToken);
-                       // progressDialog.dismiss();
-                        verificationId =VerifyId;
-
-                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
-                        otpView.requestFocus();
-
-                    }
-                }) .build();
-            PhoneAuthProvider.verifyPhoneNumber(options);
-
-            otpView.setOtpCompletionListener(new OnOtpCompletionListener() {
-                @Override
-                public void onOtpCompleted(String otp) {
-                    PhoneAuthCredential credential= PhoneAuthProvider.getCredential(verificationId,otp);
-                    auth.signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()){
-                            Toast.makeText(OtpActivity.this,"Login Succesfull",Toast.LENGTH_SHORT).show();
-                            finishAffinity();
-                        }
-                        else {
-                            Toast.makeText(OtpActivity.this, "Login Faild", Toast.LENGTH_SHORT).show();
-                        }
-
-                        }
-                    });
 
                 }
-            });
 
+        );
 
+    }
+    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
+        auth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Intent intent = new Intent(OtpActivity.this,MainActivity.class);
+                            startActivity(intent);
 
+                        }
+                        else {
+                            Toast.makeText(OtpActivity.this,"Singin Error", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 }

@@ -59,31 +59,28 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.mukesh.OtpView
-                android:id="@+id/otp_view"
+
+            <EditText
+                android:id="@+id/et_Otp"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_height="45dp"
+               app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:inputType="number"
-                android:focusableInTouchMode="true"
-                app:OtpItemCount="6"
-                android:gravity="center"
+                android:background="@drawable/textview_outline"
                 android:layout_margin="5dp"
-                app:OtpLineColor="#000"
-                app:OtpViewType="line"
                 />
+
             <Button
                 android:id="@+id/btn_Verify"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/otp_view"
+                app:layout_constraintTop_toBottomOf="@+id/et_Otp"
                 android:text="Verify"
                 android:layout_marginRight="70dp"
                 android:layout_marginLeft="70dp"
+                android:layout_marginTop="5dp"
                 android:background="@drawable/button_xml"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

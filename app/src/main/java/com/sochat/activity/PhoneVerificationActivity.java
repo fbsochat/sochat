@@ -10,14 +10,16 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.hbb20.CountryCodePicker;
 import com.sochat.R;
 
 public class PhoneVerificationActivity extends AppCompatActivity {
     EditText phone_number;
     Button btn_continue;
+    CountryCodePicker codePicker;
     FirebaseAuth auth;
 
-    //ProgressDialog dialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,13 +27,11 @@ public class PhoneVerificationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_phone_verification);
         phone_number=(EditText)findViewById(R.id.etPhone);
         btn_continue=(Button)findViewById(R.id.btnContinue);
+        codePicker= (CountryCodePicker)findViewById(R.id.ccP);
 
-        /*dialog = new ProgressDialog(this);
-        dialog.setMessage("Sending OTP...");
-        dialog.setCancelable(false);
-        dialog.show();
+        codePicker.registerCarrierNumberEditText(phone_number);
 
-         */
+
 
 
 
@@ -44,7 +44,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
             public void onClick(View view) {
                // dialog.dismiss();
                 Intent intent = new Intent(PhoneVerificationActivity.this,OtpActivity.class);
-                intent.putExtra("PhoneNumber",phone_number.getText().toString());
+                intent.putExtra("PhoneNumber",codePicker.getFullNumberWithPlus().replace("",""));
                 startActivity(intent);
 
             }
