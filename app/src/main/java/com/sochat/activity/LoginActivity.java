@@ -1,6 +1,7 @@
 package com.sochat.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import egolabsapps.basicodemine.videolayout.VideoLayout;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -12,7 +13,7 @@ import com.sochat.R;
 
 public class LoginActivity extends AppCompatActivity {
     Button google,phone;
-
+    VideoLayout videoLayout;
 
 
     @Override
@@ -20,7 +21,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         phone=(Button)findViewById(R.id.btn_Phone);
-
+        videoLayout = new VideoLayout(this);
 
 
 
@@ -35,4 +36,23 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        videoLayout.onDestroyVideoLayout();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        videoLayout.onPauseVideoLayout();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        videoLayout.onResumeVideoLayout();
+    }
+
 }

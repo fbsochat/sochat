@@ -14,6 +14,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "307802902138-5a5r4nek29mlbbpfvd67rekg68091qnq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sochat",
+            "certificate_hash": "63b855ac3b4b27c919c921766c25922665c34240"
+          }
+        },
+        {
+          "client_id": "307802902138-uorsr4iiuie411olng8vki0fs55au4hf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sochat",
+            "certificate_hash": "f02f2ce0e439e3c4cb2d4fc5797e5eb67664998e"
+          }
+        },
+        {
           "client_id": "307802902138-h4ekuborrnpu6jt5j9p9nnd8m8dreuh9.apps.googleusercontent.com",
           "client_type": 3
         }

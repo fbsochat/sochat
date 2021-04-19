@@ -12,13 +12,27 @@
     android:background="@drawable/bg_login"
     tools:context=".activity.LoginActivity">
 
+    <egolabsapps.basicodemine.videolayout.VideoLayout
+        android:id="@+id/videoLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:loop="true"
+        app:path_or_url="login_bg.mp4"
+        app:sound="true"
+        app:video_gravity="centerCrop" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:background="@drawable/front_picure"
-        android:layout_marginRight="60dp"
+        android:layout_marginEnd="60dp"
         android:layout_marginTop="40dp"
         />
 

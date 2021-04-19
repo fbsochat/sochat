@@ -64,11 +64,11 @@
                 android:id="@+id/et_Otp"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-               app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:background="@drawable/textview_outline"
                 android:layout_margin="5dp"
-                />
+                android:background="@drawable/textview_outline"
+                android:inputType="number"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/btn_Verify"

@@ -19,8 +19,6 @@ public class PhoneVerificationActivity extends AppCompatActivity {
     CountryCodePicker codePicker;
     FirebaseAuth auth;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,10 +28,6 @@ public class PhoneVerificationActivity extends AppCompatActivity {
         codePicker= (CountryCodePicker)findViewById(R.id.ccP);
 
         codePicker.registerCarrierNumberEditText(phone_number);
-
-
-
-
 
         auth =FirebaseAuth.getInstance();
 
