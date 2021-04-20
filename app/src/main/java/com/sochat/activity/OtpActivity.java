@@ -143,8 +143,7 @@ public class OtpActivity extends AppCompatActivity {
                         FirebaseUser user = authResult.getUser();
 
                         Toast.makeText(OtpActivity.this,user.getPhoneNumber(), Toast.LENGTH_LONG).show();
-//                            Intent intent = new Intent(OtpActivity.this,MainActivity.class);
-                        Intent intent = new Intent(OtpActivity.this,BottonTabActivity.class);
+                            Intent intent = new Intent(OtpActivity.this,MainActivity.class);
                             startActivity(intent);
                             finish();
                     }

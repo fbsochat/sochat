@@ -11,25 +11,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SoChat">
-        <activity
-            android:name=".activity.BottonTabActivity"
-            android:label="@string/title_activity_botton_tab"></activity>
         <activity android:name=".activity.OtpActivity" />
         <activity android:name=".activity.PhoneVerificationActivity" />
         <activity
             android:name=".activity.LoginActivity"
             android:label="@string/title_activity_login"
             android:theme="@style/Theme.SoChat.NoActionBar">
+
+        </activity>
+        <activity
+            android:name=".activity.MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/Theme.SoChat.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activity.MainActivity"
-            android:label="@string/title_activity_main"
-            android:theme="@style/Theme.SoChat.NoActionBar" />
     </application>
 
 </manifest>

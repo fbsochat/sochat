@@ -77,6 +77,8 @@
                 android:padding="10dp"
                 android:background="@drawable/textview_outline"
                 android:phoneNumber="true"
+                android:textColor="@color/black"
+                android:textAlignment="center"
                 android:hint="Enter Your Phone Number"
                 android:backgroundTint="@color/white"
                 android:layout_marginLeft="80dp"
