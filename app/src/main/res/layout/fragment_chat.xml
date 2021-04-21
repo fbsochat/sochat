@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".activity.ChatFragment"
+    android:background="@drawable/bg_room">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cons_Layout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img_RoomPicture"
+            android:layout_width="41dp"
+            android:layout_height="41dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/room_profile_picture"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_RoomName"
+            android:layout_width="64dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="5dp"
+            app:layout_constraintStart_toEndOf="@+id/img_RoomPicture"
+            app:layout_constraintTop_toTopOf="@+id/img_RoomPicture" />
+
+        <TextView
+            android:id="@+id/tv_RoomId"
+            android:layout_width="57dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            app:layout_constraintStart_toEndOf="@+id/img_RoomPicture"
+            app:layout_constraintTop_toBottomOf="@+id/tv_RoomName" />
+
+        <TextView
+            android:id="@+id/tv_RoomShare"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="60dp"
+            android:background="@drawable/room_share_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_ExitIcon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/group_exit_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_RoomShare"
+            app:layout_constraintTop_toTopOf="@+id/tv_RoomShare" />
+
+        <ImageView
+            android:id="@+id/img_memberIcon"
+            android:layout_width="30dp"
+            android:layout_height="17dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/member_list_icon"
+            app:layout_constraintEnd_toEndOf="@+id/tv_ExitIcon"
+            app:layout_constraintTop_toBottomOf="@+id/tv_ExitIcon" />
+
+        <TextView
+            android:id="@+id/tv_RoomMembers"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            app:layout_constraintEnd_toEndOf="@+id/img_memberIcon"
+            app:layout_constraintStart_toStartOf="@+id/img_memberIcon"
+            app:layout_constraintTop_toBottomOf="@+id/img_memberIcon" />
+
+        <TextView
+            android:id="@+id/tv_Mic1"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="72dp"
+            android:background="@drawable/chat_mic"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_RoomPicture" />
+
+
+        <TextView
+            android:id="@+id/tv_Mic2"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="15dp"
+            android:background="@drawable/chat_mic"
+            app:layout_constraintStart_toEndOf="@+id/tv_Mic1"
+            app:layout_constraintTop_toTopOf="@+id/tv_Mic1" />
+
+        <TextView
+            android:id="@+id/tv_Mic3"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="15dp"
+            android:background="@drawable/chat_mic"
+            app:layout_constraintStart_toEndOf="@+id/tv_Mic2"
+            app:layout_constraintTop_toTopOf="@+id/tv_Mic2" />
+
+        <TextView
+            android:id="@+id/tv_Mic4"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="15dp"
+            android:background="@drawable/chat_mic"
+            app:layout_constraintStart_toEndOf="@+id/tv_Mic3"
+            app:layout_constraintTop_toTopOf="@+id/tv_Mic3" />
+
+        <TextView
+            android:id="@+id/tv_Mic5"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="15dp"
+            android:background="@drawable/chat_mic"
+            app:layout_constraintStart_toEndOf="@+id/tv_Mic4"
+            app:layout_constraintTop_toTopOf="@+id/tv_Mic4" />
+
+        <TextView
+            android:id="@+id/tv_Mic6"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/chat_mic"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_Mic1" />
+
+        <TextView
+            android:id="@+id/tv_Mic7"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/chat_mic"
+            app:layout_constraintStart_toEndOf="@+id/tv_Mic6"
+            app:layout_constraintTop_toBottomOf="@+id/tv_Mic2" />
+
+        <TextView
+            android:id="@+id/tv_Mic8"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/chat_mic"
+            app:layout_constraintStart_toEndOf="@+id/tv_Mic7"
+            app:layout_constraintTop_toBottomOf="@+id/tv_Mic3" />
+
+        <TextView
+            android:id="@+id/tv_Mic9"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/chat_mic"
+            app:layout_constraintStart_toEndOf="@+id/tv_Mic8"
+            app:layout_constraintTop_toBottomOf="@+id/tv_Mic4" />
+
+        <TextView
+            android:id="@+id/tv_Mic10"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/chat_mic"
+            app:layout_constraintStart_toEndOf="@+id/tv_Mic9"
+            app:layout_constraintTop_toBottomOf="@+id/tv_Mic5" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_below="@+id/cons_Layout1"
+            android:layout_above="@+id/Bottom_Liner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/Bottom_Liner"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+        
+        <Button
+            android:id="@+id/btn_RoomSound"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_margin="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/roomsound_off"
+            />
+
+        <Button
+            android:id="@+id/btn_RoomMic"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="@dimen/room_margin_start"
+            app:layout_constraintStart_toEndOf="@+id/btn_RoomSound"
+            app:layout_constraintTop_toTopOf="@+id/btn_RoomSound"
+            android:background="@drawable/roommic_off"/>
+
+        <TextView
+            android:id="@+id/tv_chat"
+            android:layout_width="120dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="@dimen/room_margin_start"
+            android:drawableLeft="@drawable/ic_chat_vector"
+            android:hint="Type Here...."
+            android:textColorHint="@color/white"
+            android:textAlignment="center"
+            android:textSize="15dp"
+            app:layout_constraintStart_toEndOf="@+id/btn_RoomMic"
+            app:layout_constraintTop_toTopOf="@+id/btn_RoomMic"
+            />
+        <TextView
+            android:id="@+id/tv_Emoji"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="@dimen/room_margin_start"
+            android:background="@drawable/chat_emoji_icon"
+            app:layout_constraintStart_toEndOf="@+id/tv_chat"
+            app:layout_constraintTop_toTopOf="@+id/tv_chat"
+            />
+        <TextView
+            android:id="@+id/tv_InboxChat"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="@dimen/room_margin_start"
+            app:layout_constraintStart_toEndOf="@+id/tv_Emoji"
+            app:layout_constraintTop_toTopOf="@+id/tv_Emoji"
+            android:background="@drawable/groupinbox_chat"
+            />
+        <TextView
+            android:id="@+id/tv_Menu"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="@dimen/room_margin_start"
+            app:layout_constraintStart_toEndOf="@+id/tv_InboxChat"
+            app:layout_constraintTop_toTopOf="@+id/tv_InboxChat"
+            android:background="@drawable/group_menu"
+            />
+        <TextView
+            android:id="@+id/tv_Gift"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="@dimen/room_margin_start"
+            app:layout_constraintStart_toEndOf="@+id/tv_Menu"
+            app:layout_constraintTop_toTopOf="@+id/tv_Menu"
+            android:background="@drawable/chat_gift_icon"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_Chat"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:visibility="gone"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/background_gray">
+
+            <EditText
+                android:id="@+id/et_Message"
+                android:layout_width="350dp"
+                android:layout_height="match_parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:padding="5dp"
+                android:textColor="@color/black"
+                android:background="@color/white"
+                />
+
+            <Button
+                android:id="@+id/btn_Send"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_margin="5dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/message_send"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="gone"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>
