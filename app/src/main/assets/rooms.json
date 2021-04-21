@@ -1,0 +1,29 @@
+{
+  "ROOMS": [
+    {
+      "room name": "WE are Devolopers",
+      "Announcment": "Hi Welcome to our Room",
+      "Members": "500"
+    },
+    {
+      "room name": "Hero's Group",
+      "Announcment": "Hi Welcome",
+      "Members": "353"
+    },
+    {
+      "room name": "Brothers",
+      "Announcment": "Welcome to our Room",
+      "Members": "800"
+    },
+    {
+      "room name": "Indian Tigers",
+      "Announcment": "Hi Welcome to our Room, we all are Friends",
+      "Members": "935"
+    },
+    {
+      "room name": "Indian Tigers",
+      "Announcment": "Hi Welcome to our Room",
+      "Members": "898"
+    }
+  ]
+}
