@@ -20,6 +20,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -28,8 +29,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.sochat.R;
+import com.sochat.activity.api.UserHelper;
+import com.sochat.activity.model.User;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,6 +46,8 @@ public class LoginActivity extends AppCompatActivity {
 
     GoogleSignInClient googleSignInClient;
     private FirebaseAuth firebaseAuth;
+    private FirebaseFirestore mFireBaseFireStore;
+    private String mCurrentUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +93,7 @@ public class LoginActivity extends AppCompatActivity {
         signInButton.setSize(SignInButton.SIZE_WIDE);
         // Initialize Firebase Auth
         firebaseAuth = FirebaseAuth.getInstance();
+        mFireBaseFireStore = FirebaseFirestore.getInstance();
     }
 
     @Override
@@ -95,7 +103,10 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if (currentUser != null) {
             Log.d(TAG, "Currently Signed in: " + currentUser.getEmail());
-            showToastMessage("Currently Logged in: " + currentUser.getEmail());
+//            showToastMessage("Currently Logged in: " + currentUser.getEmail());
+            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
     public void signInToGoogle() {
@@ -130,10 +141,13 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = firebaseAuth.getCurrentUser();
+                            if (firebaseAuth.getCurrentUser() != null) {
+                                createUserInFirestore(firebaseAuth.getCurrentUser());
+                            }
+//                            DocumentReference userPath = mFireBaseFireStore.collection("users").document(mCurrentUserId);
+//                            userPath.update("userid", mCurrentUserId);
                             Log.d(TAG, "signInWithCredential:success: currentUser: " + user.getEmail());
-                            showToastMessage("Firebase Authentication Succeeded ");
-//                            launchMainActivity(user);
-                            showToastMessage("User Info:" + user.getDisplayName() + " " + user.getEmail() + "" + user.getUid());
+                            Log.d(TAG,"User Info:" + user.getDisplayName() + " " + user.getEmail() + "" + user.getUid());
                             Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                             startActivity(intent);
                             finish();
@@ -144,6 +158,37 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    // --------------------
+    // REST REQUEST
+    // --------------------
+
+    // 1 - Http request that create user in firestore
+    private void createUserInFirestore(FirebaseUser firebaseUser){
+
+        String uid = firebaseUser.getUid();
+        String username = firebaseUser.getDisplayName();
+        String profilePicUrl = (firebaseUser.getPhotoUrl() != null) ? firebaseUser.getPhotoUrl().toString() : null;
+        String phonenumber = firebaseUser.getPhoneNumber();
+        String emailAddress = firebaseUser.getEmail();
+        Integer badges = 0;
+        String country = null;
+        Integer fans = 0;
+        Integer follow = 0;
+        Boolean gender = true;
+        Boolean isActive = true;
+        Integer visitors = 0;
+        ArrayList<String> groupUsersList = null;
+
+        User user = new User(uid, username,profilePicUrl,emailAddress,phonenumber,badges,country,fans,follow,gender,isActive,visitors,groupUsersList);
+
+        UserHelper.createUser(user.getUid(), user.getUsername(),user.getProfilePicUrl(),user.getEmailAddress(),user.getPhoneNumber(),user.getBadges(),user.getCountry(),user.getFans(),user.getFollow(),user.getGender(),user.getIsActive(),user.getVisitors(),user.getGroupUsersList()).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(), getString(R.string.error_unknown_error), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     @Override
@@ -167,12 +212,5 @@ public class LoginActivity extends AppCompatActivity {
     private void showToastMessage(String message) {
         Toast.makeText(LoginActivity.this, message, Toast.LENGTH_LONG).show();
     }
-
-//    private void launchMainActivity(FirebaseUser user) {
-//        if (user != null) {
-//            MainActivity.startActivity(this, user.getDisplayName());
-//            finish();
-//        }
-//    }
 
 }

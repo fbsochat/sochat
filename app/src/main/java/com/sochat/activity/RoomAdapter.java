@@ -18,7 +18,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewClass> {
     ArrayList<String> roomname;
     ArrayList<String> announcment;
     ArrayList<String> members;
-    Context context;
+    HomeFragment context;
 
     public RoomAdapter(ArrayList<String> roomname, ArrayList<String> announcment, ArrayList<String> members, HomeFragment context) {
         this.roomname = roomname;
