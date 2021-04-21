@@ -28,8 +28,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
+//import com.google.firebase.iid.FirebaseInstanceId;
+//import com.google.firebase.iid.InstanceIdResult;
 import com.sochat.R;
 
 import java.util.HashMap;
@@ -150,19 +150,19 @@ public class LoginActivity extends AppCompatActivity {
 
     private void registerToken() {
 
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
-            @Override
-            public void onSuccess(InstanceIdResult instanceIdResult) {
-                String deviceToken = instanceIdResult.getToken();
-
-                Map<String, Object> userToken = new HashMap<>();
-                userToken.put("User_Token_ID", deviceToken);
-
-                DocumentReference userTokenPath = mFireBaseFireStore.collection("User").document(mCurrentUserId).collection("Tokens").document("User_Token");
-                userTokenPath.set(userToken);
-            }
-        });
-    }
+//        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
+//            @Override
+//            public void onSuccess(InstanceIdResult instanceIdResult) {
+//                String deviceToken = instanceIdResult.getToken();
+//
+//                Map<String, Object> userToken = new HashMap<>();
+//                userToken.put("User_Token_ID", deviceToken);
+//
+//                DocumentReference userTokenPath = mFireBaseFireStore.collection("User").document(mCurrentUserId).collection("Tokens").document("User_Token");
+//                userTokenPath.set(userToken);
+//            }
+//        });
+//    }
 
     @Override
     protected void onDestroy() {
