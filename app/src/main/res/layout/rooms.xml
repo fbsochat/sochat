@@ -15,75 +15,76 @@
         app:cardCornerRadius="50dp"
         android:layout_margin="15dp"
         >
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/img_RoomProfilePicture"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_margin="10dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                android:background="@drawable/room_profile_picture"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:background="@drawable/room_profile_picture"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/tv_RoomTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
-                android:layout_marginTop="5dp"
                 android:layout_marginStart="@dimen/room_margin_start"
-                app:layout_constraintStart_toEndOf="@+id/img_RoomProfilePicture"
-                app:layout_constraintTop_toTopOf="@+id/img_RoomProfilePicture"
+                android:layout_marginTop="5dp"
                 android:text="Room Name"
                 android:textColor="@color/black"
                 android:textSize="15dp"
-                />
+                app:layout_constraintStart_toEndOf="@+id/img_RoomProfilePicture"
+                app:layout_constraintTop_toTopOf="@+id/img_RoomProfilePicture" />
+
             <TextView
                 android:id="@+id/tv_RoomAnnounus"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_marginStart="@dimen/room_margin_start"
                 android:layout_marginTop="5dp"
-                app:layout_constraintStart_toEndOf="@+id/img_RoomProfilePicture"
-                app:layout_constraintTop_toBottomOf="@+id/tv_RoomTitle"
                 android:text="Room Announcement"
-                />
+                app:layout_constraintStart_toEndOf="@+id/img_RoomProfilePicture"
+                app:layout_constraintTop_toBottomOf="@+id/tv_RoomTitle" />
+
             <ImageView
                 android:id="@+id/img_CountryFlag"
                 android:layout_width="30dp"
                 android:layout_height="20dp"
-                android:layout_marginTop="5dp"
                 android:layout_marginStart="@dimen/room_margin_start"
-                app:layout_constraintStart_toEndOf="@+id/img_RoomProfilePicture"
-                app:layout_constraintTop_toBottomOf="@+id/tv_RoomAnnounus"
+                android:layout_marginTop="5dp"
                 android:background="@drawable/ind_flag"
-                />
+                app:layout_constraintStart_toEndOf="@+id/img_RoomProfilePicture"
+                app:layout_constraintTop_toBottomOf="@+id/tv_RoomAnnounus" />
+
             <TextView
                 android:id="@+id/tv_RoomType"
                 android:layout_width="30dp"
                 android:layout_height="20dp"
                 android:layout_marginStart="@dimen/room_margin_start"
                 android:layout_marginTop="5dp"
-                app:layout_constraintStart_toEndOf="@+id/img_CountryFlag"
-                app:layout_constraintTop_toBottomOf="@+id/tv_RoomAnnounus"
+                android:background="@color/Liner"
                 android:text="Chat"
                 android:textColor="@color/white"
-                android:background="@color/Liner"
-                />
+                app:layout_constraintStart_toEndOf="@+id/img_CountryFlag"
+                app:layout_constraintTop_toBottomOf="@+id/tv_RoomAnnounus" />
+
             <TextView
                 android:id="@+id/tv_NoOfMembers"
                 android:layout_width="25dp"
                 android:layout_height="20dp"
+                android:text="999"
+                android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.84"
                 app:layout_constraintStart_toEndOf="@+id/tv_RoomAnnounus"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="999"
-                android:textColor="@color/black"
-                />
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

@@ -91,6 +91,7 @@ public class HomeFragment extends Fragment {
         }
         RoomAdapter roomAdapter= new RoomAdapter(roomname,announcment,members,HomeFragment.this);
         recyclerView.setAdapter(roomAdapter);
+        roomAdapter.notifyDataSetChanged();
     }
 
     private String JsonDataFromAssets() {

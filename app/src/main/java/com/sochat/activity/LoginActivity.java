@@ -33,6 +33,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.sochat.R;
 import com.sochat.activity.api.UserHelper;
 import com.sochat.activity.model.User;
+import com.sochat.activity.util.Constants;
+import com.sochat.activity.util.Utility;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -76,6 +78,9 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+//        Log.d(Constants.TAG, "KHANDAL");
+//        Log.d(Constants.TAG, Utility.getCountryCodeByService());
+//        Log.d(Constants.TAG, Utility.getCountryCode(this));
     }
 
     private void configureGoogleClient() {
