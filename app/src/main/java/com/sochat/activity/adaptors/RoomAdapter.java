@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sochat.R;
-import com.sochat.activity.HomeFragment;
+import com.sochat.activity.fragments.HomeFragment;
 
 import java.util.ArrayList;
 

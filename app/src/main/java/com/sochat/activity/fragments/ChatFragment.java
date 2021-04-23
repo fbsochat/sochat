@@ -1,4 +1,4 @@
-package com.sochat.activity;
+package com.sochat.activity.fragments;
 
 import android.os.Bundle;
 

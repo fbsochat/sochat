@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".activity.RelatedFragment"
+    tools:context=".activity.fragments.RelatedFragment"
     android:background="@color/background_gray"
     >
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -61,26 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/cons_Related"
         android:background="@color/white"
-        >
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabitem_Recent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Recent"
-            />
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabitem_Joined"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Joined"
-            />
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabitem_Following"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Following"
-            />
-    </com.google.android.material.tabs.TabLayout>
+        />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/related_viewpager"

@@ -1,30 +1,30 @@
-package com.sochat.activity;
+package com.sochat.activity.fragments;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import android.util.Log;
+
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TableLayout;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 import com.sochat.R;
+import com.sochat.activity.adaptors.ViewPageAdapter;
 
 
 public class RelatedFragment extends Fragment {
 
-    TableLayout tableLayout;
-    TabItem tabItem1,tabItem2,tabItem3;
-    ViewPager viewPager;
+    private ViewPageAdapter adapter;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
 
 
 
@@ -68,16 +68,45 @@ public class RelatedFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        viewPager = (ViewPager)getActivity().findViewById(R.id.related_viewpager);
+        tabLayout = (TabLayout) getActivity().findViewById(R.id.tabLayout);
 
-        tableLayout = getActivity().findViewById(R.id.tabLayout);
-        tabItem1 = getActivity().findViewById(R.id.tabitem_Recent);
-        tabItem2 = getActivity().findViewById(R.id.tabitem_Joined);
-        tabItem3 = getActivity().findViewById(R.id.tabitem_Following);
-        viewPager = getActivity().findViewById(R.id.related_viewpager);
+        adapter = new ViewPageAdapter(getActivity().getSupportFragmentManager());
+        adapter.addFragment(new RecentFragment(), "Recent");
+        adapter.addFragment(new JoinedFragment(), "Joined");
+        adapter.addFragment(new FollowingFragment(), "Following");
+
+        viewPager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(viewPager);
 
 
 
 
-
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+            @Override
+            public void onPageSelected(int position) {
+               // highLightCurrentTab(position); // for tab change
+            }
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
     }
+    /*private void highLightCurrentTab(int position) {
+        for (int i = 0; i < tabLayout.getTabCount(); i++) {
+            TabLayout.Tab tab = tabLayout.getTabAt(i);
+            assert tab != null;
+            tab.setCustomView(null);
+            tab.setCustomView(adapter.getTabView(i));
+        }
+
+        TabLayout.Tab tab = tabLayout.getTabAt(position);
+        assert tab != null;
+        tab.setCustomView(null);
+        tab.setCustomView(adapter.getSelectedTabView(position));
+    }
+     */
 }

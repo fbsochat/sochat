@@ -1,4 +1,4 @@
-package com.sochat.activity;
+package com.sochat.activity.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.sochat.R;
+import com.sochat.activity.LoginActivity;
 
 public class ProfileFragment extends Fragment implements View.OnClickListener{
 
@@ -89,6 +90,5 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
                     }
                 });
     }
-
 
 }

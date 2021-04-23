@@ -1,38 +1,52 @@
 package com.sochat.activity.adaptors;
 
+import android.view.LayoutInflater;
+import android.view.View;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.sochat.activity.FollowingFragment;
-import com.sochat.activity.JoinedFragment;
-import com.sochat.activity.RecentFragment;
+import com.sochat.R;
+import com.sochat.activity.fragments.FollowingFragment;
+import com.sochat.activity.fragments.JoinedFragment;
+import com.sochat.activity.fragments.RecentFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ViewPageAdapter extends FragmentPagerAdapter {
+    private final List<Fragment> mFragmentList = new ArrayList<>();
+    private final List<String> mFragmentTitleList = new ArrayList<>();
 
-    int tabcount;
-    public ViewPageAdapter(@NonNull FragmentManager fm, int behavior) {
-        super(fm, behavior);
-        tabcount=behavior;
+    public ViewPageAdapter(FragmentManager fm) {
+        super(fm);
     }
-
-    @NonNull
     @Override
     public Fragment getItem(int position) {
-        switch (position){
-            case 0 :return new RecentFragment();
-            case 1 :return new JoinedFragment();
-            case 2 :return new FollowingFragment();
-            default:return null;
-        }
+        return mFragmentList.get(position);
     }
-
+    public void addFragment(Fragment fragment, String title) {
+        mFragmentList.add(fragment);
+        mFragmentTitleList.add(title);
+    }
+    @Nullable
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return mFragmentTitleList.get(position);
+    }
     @Override
     public int getCount() {
-        return tabcount;
+        return mFragmentList.size();
     }
+    /*public View getTabView(int position) {
+        View view = LayoutInflater.from(context).inflate(R.layout.custom_tab, null);
+        TextView tabTextView = view.findViewById(R.id.tabTextView);
+        tabTextView.setText(mFragmentTitleList.get(position));
+        return view;
+    }
+
+     */
 }

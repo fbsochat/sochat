@@ -1,4 +1,4 @@
-package com.sochat.activity;
+package com.sochat.activity.fragments;
 
 import android.os.Bundle;
 
@@ -10,23 +10,18 @@ import android.view.ViewGroup;
 
 import com.sochat.R;
 
-
-public class InboxFragment extends Fragment {
+public class EditProfileFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-
     private String mParam1;
     private String mParam2;
 
-    public InboxFragment() {
-
+    public EditProfileFragment() {
     }
-
-
-    public static InboxFragment newInstance(String param1, String param2) {
-        InboxFragment fragment = new InboxFragment();
+        public static EditProfileFragment newInstance(String param1, String param2) {
+        EditProfileFragment fragment = new EditProfileFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -46,6 +41,6 @@ public class InboxFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_inbox, container, false);
+        return inflater.inflate(R.layout.fragment_edit_profile, container, false);
     }
 }

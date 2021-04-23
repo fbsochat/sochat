@@ -5,6 +5,9 @@ import android.os.Bundle;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.sochat.R;
 import com.sochat.activity.adaptors.ViewPagerAdapter;
+import com.sochat.activity.fragments.HomeFragment;
+import com.sochat.activity.fragments.InboxFragment;
+import com.sochat.activity.fragments.ProfileFragment;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -75,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         setViewPager(viewPager);
+
     }
     public void setViewPager(ViewPager viewPager){
         ViewPagerAdapter adapter= new ViewPagerAdapter(getSupportFragmentManager());
