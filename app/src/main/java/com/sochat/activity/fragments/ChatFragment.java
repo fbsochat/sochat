@@ -1,16 +1,20 @@
 package com.sochat.activity.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.sochat.R;
 
 public class ChatFragment extends Fragment {
+    TextView exit;
 
 
     private static final String ARG_PARAM1 = "param1";
@@ -46,5 +50,19 @@ public class ChatFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         return inflater.inflate(R.layout.fragment_chat, container, false);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        exit=(TextView)getActivity().findViewById(R.id.tv_ExitIcon);
+
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(),ExitFragment.class);
+                startActivity(i);
+            }
+        });
     }
 }

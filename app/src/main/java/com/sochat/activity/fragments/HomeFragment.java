@@ -3,13 +3,16 @@ package com.sochat.activity.fragments;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.sochat.R;
 import com.sochat.activity.adaptors.RoomAdapter;
@@ -32,6 +35,8 @@ public class HomeFragment extends Fragment {
     ArrayList<String> roomname =new ArrayList<>();
     ArrayList<String> announcment =new ArrayList<>();
     ArrayList<String> members =new ArrayList<>();
+    TextView related;
+    ConstraintLayout constraintLayout;
 
 
     private String mParam1;
@@ -70,7 +75,21 @@ public class HomeFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        related=(TextView)getActivity().findViewById(R.id.tv_Related);
+        constraintLayout=(ConstraintLayout)getActivity().findViewById(R.id.cons_home);
         recyclerView=(RecyclerView)getActivity().findViewById(R.id.recycler_GroupAdopter);
+
+        related.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            constraintLayout.setVisibility(view.GONE);
+            Fragment fragment=new RelatedFragment();
+            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.home_FrameContainer,fragment);
+            transaction.commit();
+            }
+        });
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
 

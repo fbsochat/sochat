@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -30,6 +32,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
 
     Button btnLogout;
     FirebaseAuth auth;
+    TextView edit;
 
     public ProfileFragment() {
 
@@ -60,9 +63,11 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
                              Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_profile, container, false);
+        edit=(TextView)getActivity().findViewById(R.id.tv_Edit);
         btnLogout = (Button) root.findViewById(R.id.buttonLogout);
         btnLogout.setOnClickListener(this);
         return root;//inflater.inflate(R.layout.fragment_profile, container, false);
+
     }
 
     @Override
@@ -91,4 +96,15 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
                 });
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(),EditProfileFragment.class);
+                startActivity(i);
+            }
+        });
+    }
 }

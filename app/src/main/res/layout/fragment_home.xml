@@ -8,10 +8,11 @@
     android:background="@drawable/bg_phoneverification">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cons_home"
+        android:id="@+id/cons_Appbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="50dp"
+        android:background="@color/white"
+        >
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/Appbar"
             android:layout_width="match_parent"
@@ -35,16 +36,16 @@
                     android:text="Related"
                     android:textColor="@color/white"
                     />
-                    <TextView
-                        android:id="@+id/tv_Tranding"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/room_margin_start"
-                        app:layout_constraintStart_toEndOf="@+id/tv_Related"
-                        app:layout_constraintTop_toTopOf="@+id/tv_Related"
-                        android:text="Tranding"
-                        android:textColor="@color/white"
-                        />
+                <TextView
+                    android:id="@+id/tv_Tranding"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/room_margin_start"
+                    app:layout_constraintStart_toEndOf="@+id/tv_Related"
+                    app:layout_constraintTop_toTopOf="@+id/tv_Related"
+                    android:text="Tranding"
+                    android:textColor="@color/white"
+                    />
                 <androidx.appcompat.widget.SearchView
                     android:id="@+id/search"
                     android:layout_width="wrap_content"
@@ -55,6 +56,14 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cons_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/cons_Appbar">
+
         <ImageView
             android:id="@+id/img_banner"
             android:layout_width="wrap_content"
@@ -64,7 +73,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.516"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Appbar" />
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
         <TextView
             android:id="@+id/tv_Ricon"
@@ -82,11 +92,11 @@
             android:layout_height="40dp"
             android:layout_marginLeft="45dp"
             android:layout_marginTop="35dp"
-            android:textAlignment="center"
+            android:background="@drawable/button_xml"
             android:text="Tranding"
+            android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="25dp"
-            android:background="@drawable/button_xml"
             app:layout_constraintStart_toEndOf="@+id/tv_Ricon"
             app:layout_constraintTop_toBottomOf="@+id/img_banner" />
 
@@ -102,4 +112,12 @@
             app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
+        android:layout_below="@+id/cons_Appbar"
+        android:id="@+id/home_FrameContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
 </RelativeLayout>
