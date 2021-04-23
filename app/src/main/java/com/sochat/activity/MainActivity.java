@@ -3,19 +3,15 @@ package com.sochat.activity;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.sochat.R;
+import com.sochat.activity.adaptors.ViewPagerAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;

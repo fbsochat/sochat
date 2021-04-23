@@ -1,7 +1,5 @@
 package com.sochat.activity;
 
-import android.content.Context;
-import android.content.res.AssetManager;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -9,12 +7,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.service.autofill.UserData;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.sochat.R;
+import com.sochat.activity.adaptors.RoomAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;

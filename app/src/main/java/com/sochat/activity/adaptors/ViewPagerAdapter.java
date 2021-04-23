@@ -1,4 +1,4 @@
-package com.sochat.activity;
+package com.sochat.activity.adaptors;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

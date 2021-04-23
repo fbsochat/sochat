@@ -1,9 +1,13 @@
-package com.sochat.activity;
+package com.sochat.activity.adaptors;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+
+import com.sochat.activity.FollowingFragment;
+import com.sochat.activity.JoinedFragment;
+import com.sochat.activity.RecentFragment;
 
 import java.util.ArrayList;
 import java.util.List;
