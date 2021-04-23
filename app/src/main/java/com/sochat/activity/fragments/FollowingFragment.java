@@ -2,16 +2,47 @@ package com.sochat.activity.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.sochat.R;
+import com.sochat.activity.adaptors.RoomAdapter;
+import com.sochat.activity.api.GroupHelper;
+import com.sochat.activity.model.Group;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 
 
 public class FollowingFragment extends Fragment {
+
+    private FirebaseAuth firebaseAuth;
+    private FirebaseFirestore mFireBaseFireStore;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,6 +52,12 @@ public class FollowingFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    RecyclerView recyclerView;
+    ArrayList<ImageView> groupImage =new ArrayList<>();
+    ArrayList<String> roomname =new ArrayList<>();
+    ArrayList<String> announcment =new ArrayList<>();
+    ArrayList<Integer> members =new ArrayList<>();
 
     public FollowingFragment() {
         // Required empty public constructor
@@ -59,4 +96,73 @@ public class FollowingFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_following, container, false);
     }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        recyclerView=(RecyclerView)getActivity().findViewById(R.id.recycler_following);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        mFireBaseFireStore = FirebaseFirestore.getInstance();
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        if (firebaseAuth.getCurrentUser() != null) {
+
+                GroupHelper.getGroup("lKOrSqAo1hbRBftByHr4").addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        Group group = documentSnapshot.toObject(Group.class);
+
+                        ImageView imageView = (ImageView) getActivity().findViewById(R.id.img_RoomProfilePicture);
+                        Glide.with(getActivity()).load(group.getGroupPicUrl()).into(imageView);
+
+                        roomname.add(group.getName());
+                        announcment.add(group.getGroupAbout());
+                        members.add(group.getMembers().size());
+                        RoomAdapter roomAdapter= new RoomAdapter(roomname,announcment,members,FollowingFragment.this);
+                        recyclerView.setAdapter(roomAdapter);
+                        roomAdapter.notifyDataSetChanged();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+//        try {
+//            JSONObject jsonObject = new JSONObject(JsonDataFromAssets());
+//            JSONArray jsonArray = jsonObject.getJSONArray("ROOMS");
+//            for (int i=0;i<jsonArray.length();i++){
+//                JSONObject roomsdata=jsonArray.getJSONObject(i);
+//                roomname.add(roomsdata.getString("roomname"));
+//                announcment.add(roomsdata.getString("announcment"));
+//                members.add(roomsdata.getString("members"));
+//            }
+//
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+
+    }
+
+    private String JsonDataFromAssets() {
+        String json=" ";
+        try {
+            InputStream assetManager = getActivity().getAssets().open("rooms.json");
+            int sizeOfFile= assetManager.available();
+            byte[] bufferdata= new byte[sizeOfFile];
+            assetManager.read(bufferdata);
+            assetManager.close();
+            json=new String(bufferdata,"UTF-8");
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return json;
+    }
+
 }

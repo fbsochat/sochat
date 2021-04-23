@@ -11,10 +11,12 @@ public class Group {
     String createdBy;
     String groupId;
     ArrayList<String> members;
-    Timestamp modifieddAt;
+    Timestamp modifiedAt;
     String name;
-    HashMap recentMessage; // messageText , sentAt, sentBy, type, users
-    Integer groupRoomNo;
+    HashMap<String,Object> recentMessage; // messageText , sentAt, sentBy, type, users
+    String groupRoomNo;
+    String groupPicUrl;
+    String groupAbout;
 
     public Group() {
         //empty constructor needed
@@ -24,16 +26,26 @@ public class Group {
                  String createdBy,
                  String groupId,
                  ArrayList<String> members,
-                 Timestamp modifieddAt,
+                 Timestamp modifiedAt,
                  String name,
-                 HashMap recentMessage,
-                 String groupRoomNo)
+                 HashMap<String,Object> recentMessage,
+                 String groupRoomNo,
+                 String groupPicUrl,
+                 String groupAbout)
                 {
-        this.createdAt = createdAt;
-        this.createdBy = createdBy;
-        this.groupId = groupId;
+                    this.createdAt = createdAt;
+                    this.createdBy = createdBy;
+                    this.groupId = groupId;
+                    this.members = members;
+                    this.modifiedAt = modifiedAt;
+                    this.name = name;
+                    this.recentMessage = recentMessage;
+                    this.groupRoomNo = groupRoomNo;
+                    this.groupPicUrl = groupPicUrl;
+                    this.groupAbout = groupAbout;
     }
 
+    // getter
     public Timestamp getCreatedAt() {
         return createdAt;
     }
@@ -50,19 +62,68 @@ public class Group {
         return members;
     }
 
-    public Timestamp getModifieddAt() {
-        return modifieddAt;
+    public Timestamp getModifiedAt() {
+        return modifiedAt;
     }
 
     public String getName() {
         return name;
     }
 
-    public HashMap getRecentMessage() {
+    public HashMap<String,Object> getRecentMessage() {
         return recentMessage;
     }
 
-    public Integer getGroupRoomNo() {
+    public String getGroupRoomNo() {
         return groupRoomNo;
+    }
+
+    public String getGroupPicUrl() {
+        return groupPicUrl;
+    }
+
+    public String getGroupAbout() {
+        return groupAbout;
+    }
+
+    // setter
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
+    }
+
+    public void setMembers(ArrayList<String> members) {
+        this.members = members;
+    }
+
+    public void setModifieddAt(Timestamp modifiedAt) {
+        this.modifiedAt = modifiedAt;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setRecentMessage(HashMap<String, Object> recentMessage) {
+        this.recentMessage = recentMessage;
+    }
+
+    public void setGroupRoomNo(String groupRoomNo) {
+        this.groupRoomNo = groupRoomNo;
+    }
+
+    public void setGroupPicUrl(String groupPicUrl) {
+        this.groupPicUrl = groupPicUrl;
+    }
+
+    public void setGroupAbout(String groupAbout) {
+        this.groupAbout = groupAbout;
     }
 }

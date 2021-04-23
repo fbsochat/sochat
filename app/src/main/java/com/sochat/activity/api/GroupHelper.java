@@ -18,7 +18,7 @@ public class GroupHelper {
 
     // --- COLLECTION REFERENCE ---
 
-    public static CollectionReference getUsersCollection() {
+    public static CollectionReference getGroupCollection() {
         return FirebaseFirestore.getInstance().collection(COLLECTION_NAME);
     }
 
@@ -31,10 +31,12 @@ public class GroupHelper {
                                         Timestamp modifieddAt,
                                         String name,
                                         HashMap recentMessage,
-                                        String groupRoomNo
+                                        String groupRoomNo,
+                                        String groupPicUrl,
+                                        String groupAbout
 
                                         ) {
-        DocumentReference documentReference = GroupHelper.getUsersCollection().document();
+        DocumentReference documentReference = GroupHelper.getGroupCollection().document();
         String groupId = documentReference.getId();
         Group groupToCreate = new Group(
                 createdAt,
@@ -44,7 +46,9 @@ public class GroupHelper {
                 modifieddAt,
                 name,
                 recentMessage,
-                groupRoomNo
+                groupRoomNo,
+                groupPicUrl,
+                groupAbout
         );
 
         return documentReference.set(groupToCreate);
@@ -53,20 +57,18 @@ public class GroupHelper {
     // --- GET ---
 
     public static Task<DocumentSnapshot> getGroup(String uid) {
-        return UserHelper.getUsersCollection().document(uid).get();
+        return GroupHelper.getGroupCollection().document(uid).get();
     }
 
     // --- UPDATE ---
 
     public static Task<Void> updateUsername(String name, String uid) {
-        return UserHelper.getUsersCollection().document(uid).update("name", name);
+        return GroupHelper.getGroupCollection().document(uid).update("name", name);
     }
-
-
 
     // --- DELETE --- we will avoid it instead will deactive
 
     public static Task<Void> deleteUser(String uid) {
-        return UserHelper.getUsersCollection().document(uid).delete();
+        return GroupHelper.getGroupCollection().document(uid).delete();
     }
 }

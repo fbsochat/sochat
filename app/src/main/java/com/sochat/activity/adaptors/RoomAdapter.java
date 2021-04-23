@@ -3,9 +3,11 @@ package com.sochat.activity.adaptors;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sochat.R;
@@ -17,10 +19,10 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewClass> {
 
     ArrayList<String> roomname;
     ArrayList<String> announcment;
-    ArrayList<String> members;
-    HomeFragment context;
+    ArrayList<Integer> members;
+    Fragment context;
 
-    public RoomAdapter(ArrayList<String> roomname, ArrayList<String> announcment, ArrayList<String> members, HomeFragment context) {
+    public RoomAdapter(ArrayList<String> roomname, ArrayList<String> announcment, ArrayList<Integer> members, Fragment context) {
         this.roomname = roomname;
         this.announcment = announcment;
         this.members = members;
@@ -39,7 +41,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewClass> {
     public void onBindViewHolder(@NonNull ViewClass holder, int position) {
         holder.roomname.setText(roomname.get(position));
         holder.announcment.setText(announcment.get(position));
-        holder.members.setText(members.get(position));
+        holder.members.setText(String.valueOf(members.get(position)));
 
 
     }
@@ -51,6 +53,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewClass> {
 
     public class ViewClass extends RecyclerView.ViewHolder {
         TextView roomname,announcment,members;
+
 
         public ViewClass(@NonNull View itemView) {
             super(itemView);

@@ -44,7 +44,6 @@ public class LoginActivity extends AppCompatActivity {
     GoogleSignInClient googleSignInClient;
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore mFireBaseFireStore;
-    private String mCurrentUserId;
     private SharedPreferences sharedPreferences;
 
     @Override
@@ -148,8 +147,6 @@ public class LoginActivity extends AppCompatActivity {
                             if (firebaseAuth.getCurrentUser() != null) {
                                 createUserInFirestore(firebaseAuth.getCurrentUser());
                             }
-//                            DocumentReference userPath = mFireBaseFireStore.collection("users").document(mCurrentUserId);
-//                            userPath.update("userid", mCurrentUserId);
                             Log.d(TAG, "signInWithCredential:success: currentUser: " + user.getEmail());
                             Log.d(TAG,"User Info:" + user.getDisplayName() + " " + user.getEmail() + "" + user.getUid());
                             Intent intent = new Intent(LoginActivity.this,MainActivity.class);

@@ -17,7 +17,7 @@ public class MessageHelper {
 
     // --- COLLECTION REFERENCE ---
 
-    public static CollectionReference getUsersCollection() {
+    public static CollectionReference getMessageCollection() {
         return FirebaseFirestore.getInstance().collection(COLLECTION_NAME);
     }
 
@@ -35,25 +35,25 @@ public class MessageHelper {
                  sentBy
         );
 
-        return MessageHelper.getUsersCollection().document(currentGroupId).set(msg);
+        return MessageHelper.getMessageCollection().document(currentGroupId).set(msg);
     }
 
     // --- GET ---
 
     public static Task<DocumentSnapshot> getMessages(String groupid) {
-        return UserHelper.getUsersCollection().document(groupid).get();
+        return MessageHelper.getMessageCollection().document(groupid).get();
     }
 
     // --- UPDATE ---
 
     public static Task<Void> updateMessage(Message msg, String groupid) {
-        return UserHelper.getUsersCollection().document(groupid).update("messages", msg);
+        return MessageHelper.getMessageCollection().document(groupid).update("messages", msg);
     }
 
 
     // --- DELETE ---
 
     public static Task<Void> deleteChat(String groupid) {
-        return UserHelper.getUsersCollection().document(groupid).delete();
+        return MessageHelper.getMessageCollection().document(groupid).delete();
     }
 }

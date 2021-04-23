@@ -3,27 +3,27 @@
     {
       "roomname": "WE are Devolopers",
       "announcment": "Hi Welcome to our Room",
-      "members": "500"
+      "members": 500
     },
     {
       "roomname": "Hero's Group",
       "announcment": "Hi Welcome",
-      "members": "353"
+      "members": 353
     },
     {
       "roomname": "Brothers",
       "announcment": "Welcome to our Room",
-      "members": "800"
+      "members": 800
     },
     {
       "roomname": "Indian Tigers",
       "announcment": "Hi Welcome to our Room, we all are Friends",
-      "members": "935"
+      "members": 935
     },
     {
       "roomname": "Indian Tigers",
       "announcment": "Hi Welcome to our Room",
-      "members": "898"
+      "members": 898
     }
   ]
 }

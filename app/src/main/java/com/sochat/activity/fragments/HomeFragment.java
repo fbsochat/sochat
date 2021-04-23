@@ -34,7 +34,7 @@ public class HomeFragment extends Fragment {
     RecyclerView recyclerView;
     ArrayList<String> roomname =new ArrayList<>();
     ArrayList<String> announcment =new ArrayList<>();
-    ArrayList<String> members =new ArrayList<>();
+    ArrayList<Integer> members =new ArrayList<>();
     TextView related;
     ConstraintLayout constraintLayout;
 
@@ -100,7 +100,7 @@ public class HomeFragment extends Fragment {
                 JSONObject roomsdata=jsonArray.getJSONObject(i);
                 roomname.add(roomsdata.getString("roomname"));
                 announcment.add(roomsdata.getString("announcment"));
-                members.add(roomsdata.getString("members"));
+                members.add(roomsdata.getInt("members"));
             }
 
         } catch (JSONException e) {
