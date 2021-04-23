@@ -17,7 +17,7 @@ public class User {
     private Boolean isActive;
     private Integer visitors;
 
-    private ArrayList<String> groupUsersList = new ArrayList<>();
+    private ArrayList<String> groups = new ArrayList<>();
 
     public User() {
         //empty constructor needed
@@ -35,7 +35,7 @@ public class User {
                 Boolean gender,
                 Boolean isActive,
                 Integer visitors,
-                ArrayList<String> groupUsersList
+                ArrayList<String> groups
     ) {
         this.uid = uid;
         this.username = username;
@@ -49,7 +49,7 @@ public class User {
         this.gender = gender;
         this.isActive = isActive;
         this.visitors = visitors;
-        this.groupUsersList = groupUsersList;
+        this.groups = groups;
     }
 
     public String getUid() {
@@ -100,7 +100,7 @@ public class User {
         return visitors;
     }
 
-    public ArrayList<String> getGroupUsersList() {
-        return groupUsersList;
+    public ArrayList<String> getGroups() {
+        return groups;
     }
 }

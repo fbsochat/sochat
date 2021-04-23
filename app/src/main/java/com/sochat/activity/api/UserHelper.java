@@ -32,7 +32,7 @@ public class UserHelper {
                                         Boolean gender,
                                         Boolean isActive,
                                         Integer visitors,
-                                        ArrayList<String> groupUsersList) {
+                                        ArrayList<String> groups) {
         User userToCreate = new User(
                 uid,
                 username,
@@ -46,7 +46,7 @@ public class UserHelper {
                 gender,
                 isActive,
                 visitors,
-                groupUsersList
+                groups
         );
         return UserHelper.getUsersCollection().document(uid).set(userToCreate);
     }
@@ -55,6 +55,12 @@ public class UserHelper {
 
     public static Task<DocumentSnapshot> getUser(String uid) {
         return UserHelper.getUsersCollection().document(uid).get();
+    }
+
+    // --- UPDATE Profile ---
+
+    public static Task<Void> updateProfile(String uid,String username, String gender,String dob,String country, String bio) {
+        return UserHelper.getUsersCollection().document(uid).update("username", username,"gender",gender,"dob",dob,"country",country,"bio",bio);
     }
 
     // --- UPDATE ---

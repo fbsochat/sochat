@@ -2,6 +2,7 @@ package com.sochat.activity.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
@@ -14,6 +15,11 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Random;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class Utility {
     public static String getCountryCodeByService() {
@@ -60,5 +66,33 @@ public class Utility {
 //        return locale;
     }
 
+    public static String getDate(long milliSeconds, String dateFormat) {
+
+        SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(milliSeconds);
+        return formatter.format(calendar.getTime());
+    }
+
+    public static String getRandomNumber(){
+        Random rand = new Random();
+        int num = rand.nextInt(9000000) + 1000000;
+        String randomNumber = Integer.toString(num);
+        return randomNumber;
+    }
+
+    public static void setCurrentUser(Activity activity,String userId) {
+
+        SharedPreferences myPrefs = activity.getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor prefsEditor = myPrefs.edit();
+        prefsEditor.putString(Constants.USER_ID, userId);
+        prefsEditor.apply();
+    }
+
+    public static String getSharedPreferencesUserId(Activity activity){
+        SharedPreferences sharedPreferences = activity.getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+        String userId = sharedPreferences.getString(Constants.USER_ID, "");
+        return userId;
+    }
 
 }

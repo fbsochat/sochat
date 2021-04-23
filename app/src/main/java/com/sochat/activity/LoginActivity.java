@@ -5,8 +5,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import egolabsapps.basicodemine.videolayout.VideoLayout;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,24 +21,19 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.sochat.R;
 import com.sochat.activity.api.UserHelper;
 import com.sochat.activity.model.User;
-import com.sochat.activity.util.Constants;
 import com.sochat.activity.util.Utility;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
     Button phone;
@@ -50,11 +45,15 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore mFireBaseFireStore;
     private String mCurrentUserId;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        sharedPreferences = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+
         phone=(Button)findViewById(R.id.btn_Phone);
         videoLayout = new VideoLayout(this);
 
@@ -184,11 +183,15 @@ public class LoginActivity extends AppCompatActivity {
         Boolean gender = true;
         Boolean isActive = true;
         Integer visitors = 0;
-        ArrayList<String> groupUsersList = null;
+        ArrayList<String> groups = new ArrayList<String>();
+        groups.add(null);
 
-        User user = new User(uid, username,profilePicUrl,emailAddress,phonenumber,badges,country,fans,follow,gender,isActive,visitors,groupUsersList);
+        // set userId to sharedpreferences
+        Utility.setCurrentUser(LoginActivity.this,uid);
 
-        UserHelper.createUser(user.getUid(), user.getUsername(),user.getProfilePicUrl(),user.getEmailAddress(),user.getPhoneNumber(),user.getBadges(),user.getCountry(),user.getFans(),user.getFollow(),user.getGender(),user.getIsActive(),user.getVisitors(),user.getGroupUsersList()).addOnFailureListener(new OnFailureListener() {
+        User user = new User(uid, username,profilePicUrl,emailAddress,phonenumber,badges,country,fans,follow,gender,isActive,visitors,groups);
+
+        UserHelper.createUser(user.getUid(), user.getUsername(),user.getProfilePicUrl(),user.getEmailAddress(),user.getPhoneNumber(),user.getBadges(),user.getCountry(),user.getFans(),user.getFollow(),user.getGender(),user.getIsActive(),user.getVisitors(),user.getGroups()).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(getApplicationContext(), getString(R.string.error_unknown_error), Toast.LENGTH_LONG).show();
