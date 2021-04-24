@@ -106,7 +106,9 @@ public class HomeFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        RoomAdapter roomAdapter= new RoomAdapter(roomname,announcment,members,HomeFragment.this);
+        ArrayList<String> groupId = new ArrayList<>();
+        groupId.add("lKOrSqAo1hbRBftByHr4");
+        RoomAdapter roomAdapter= new RoomAdapter(roomname,announcment,members,groupId,HomeFragment.this);
         recyclerView.setAdapter(roomAdapter);
         roomAdapter.notifyDataSetChanged();
 

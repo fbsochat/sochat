@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
+import com.sochat.activity.MyApplication;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -91,6 +93,12 @@ public class Utility {
 
     public static String getSharedPreferencesUserId(Activity activity){
         SharedPreferences sharedPreferences = activity.getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+        String userId = sharedPreferences.getString(Constants.USER_ID, "");
+        return userId;
+    }
+
+    public static String getSharedPreferencesUserId(){
+        SharedPreferences sharedPreferences = MyApplication.getContext().getSharedPreferences("sharedPrefs", MODE_PRIVATE);
         String userId = sharedPreferences.getString(Constants.USER_ID, "");
         return userId;
     }

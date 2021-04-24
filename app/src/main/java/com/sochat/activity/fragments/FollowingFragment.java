@@ -2,23 +2,18 @@ package com.sochat.activity.fragments;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,17 +23,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.sochat.R;
 import com.sochat.activity.adaptors.RoomAdapter;
 import com.sochat.activity.api.GroupHelper;
 import com.sochat.activity.model.Group;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -50,7 +40,6 @@ import dmax.dialog.SpotsDialog;
 public class FollowingFragment extends Fragment {
 
     private FirebaseAuth firebaseAuth;
-    private FirebaseFirestore mFireBaseFireStore;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -62,10 +51,10 @@ public class FollowingFragment extends Fragment {
     private String mParam2;
 
     RecyclerView recyclerView;
-    ArrayList<ImageView> groupImage =new ArrayList<>();
     ArrayList<String> roomname =new ArrayList<>();
     ArrayList<String> announcment =new ArrayList<>();
     ArrayList<Integer> members =new ArrayList<>();
+    ArrayList<String> groupid =new ArrayList<>();
 
     public FollowingFragment() {
         // Required empty public constructor
@@ -118,7 +107,6 @@ public class FollowingFragment extends Fragment {
 
 
         firebaseAuth = FirebaseAuth.getInstance();
-        mFireBaseFireStore = FirebaseFirestore.getInstance();
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -172,7 +160,8 @@ public class FollowingFragment extends Fragment {
                 roomname.add(group.getName());
                 announcment.add(group.getGroupAbout());
                 members.add(group.getMembers().size());
-                RoomAdapter roomAdapter= new RoomAdapter(roomname,announcment,members,FollowingFragment.this);
+                groupid.add(group.getGroupId());
+                RoomAdapter roomAdapter= new RoomAdapter(roomname,announcment,members,groupid,FollowingFragment.this);
                 recyclerView.setAdapter(roomAdapter);
                 roomAdapter.notifyDataSetChanged();
             }

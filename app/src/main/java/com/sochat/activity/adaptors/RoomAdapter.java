@@ -11,9 +11,14 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.sochat.R;
+import com.sochat.activity.api.MessageHelper;
 import com.sochat.activity.fragments.HomeFragment;
+import com.sochat.activity.util.Utility;
 
+import java.sql.Time;
 import java.util.ArrayList;
 
 public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewClass> {
@@ -21,12 +26,16 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewClass> {
     public ArrayList<String> roomname;
     public ArrayList<String> announcment;
     public ArrayList<Integer> members;
+    public ArrayList<String> groupid;
     public Fragment context;
+    private FirebaseFirestore mFireBaseFireStore;
 
-    public RoomAdapter(ArrayList<String> roomname, ArrayList<String> announcment, ArrayList<Integer> members, Fragment context) {
+
+    public RoomAdapter(ArrayList<String> roomname, ArrayList<String> announcment, ArrayList<Integer> members, ArrayList<String> groupid, Fragment context) {
         this.roomname = roomname;
         this.announcment = announcment;
         this.members = members;
+        this.groupid=groupid;
         this.context=context;
     }
 
@@ -35,11 +44,13 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewClass> {
     public ViewClass onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rooms,parent,false);
         ViewClass viewClass=new ViewClass(view);
+        mFireBaseFireStore = FirebaseFirestore.getInstance();
         return viewClass;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewClass holder, int position) {
+        String userid = Utility.getSharedPreferencesUserId();
         holder.roomname.setText(roomname.get(position));
         holder.announcment.setText(announcment.get(position));
         holder.members.setText(String.valueOf(members.get(position)));
@@ -47,7 +58,13 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewClass> {
             @Override
             public void onClick(View v) {
                 // Here You Do Your Click Magic
-                Log.d("Deepak","" + members.get(position));
+                Log.d("members","" + members.get(position));
+                Log.d("groupid","" + groupid.get(position));
+                String msg = "Jai Ho";
+                Timestamp sentAt = Timestamp.now();
+                String sentBy = userid ;
+                String currentGroupId = groupid.get(position);
+                MessageHelper.saveMessage("Jai Ho",sentAt,sentBy,currentGroupId);
             }
         });
 
