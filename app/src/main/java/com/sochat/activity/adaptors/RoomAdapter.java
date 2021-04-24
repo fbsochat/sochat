@@ -27,6 +27,8 @@ import com.sochat.activity.util.Utility;
 import java.sql.Time;
 import java.util.ArrayList;
 
+import static android.content.Intent.FLAG_ACTIVITY_MULTIPLE_TASK;
+
 public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewClass> {
 
     public ArrayList<String> roomname;
@@ -77,7 +79,8 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewClass> {
 
                 */
                 Intent intent = new Intent(MyApplication.getContext(), ChatActivity.class);
-                intent.putExtra("Hello","Nisar");
+                intent.putExtra("groupid",groupid.get(position));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|FLAG_ACTIVITY_MULTIPLE_TASK);
                 MyApplication.getContext().startActivity(intent);
 
             }
