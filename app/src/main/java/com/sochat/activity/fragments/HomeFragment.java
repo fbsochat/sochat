@@ -109,6 +109,7 @@ public class HomeFragment extends Fragment {
         }
         ArrayList<String> groupId = new ArrayList<>();
         groupId.add("lKOrSqAo1hbRBftByHr4");
+        groupRoomNumber.add("123");
         RoomAdapter roomAdapter= new RoomAdapter(roomname,announcment,members,groupId,groupRoomNumber,HomeFragment.this);
         recyclerView.setAdapter(roomAdapter);
         roomAdapter.notifyDataSetChanged();

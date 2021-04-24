@@ -162,6 +162,7 @@ public class FollowingFragment extends Fragment {
                 announcment.add(group.getGroupAbout());
                 members.add(group.getMembers().size());
                 groupid.add(group.getGroupId());
+                groupRoomNumber.add(group.getGroupRoomNo());
                 RoomAdapter roomAdapter= new RoomAdapter(roomname,announcment,members,groupid,groupRoomNumber,FollowingFragment.this);
                 recyclerView.setAdapter(roomAdapter);
                 roomAdapter.notifyDataSetChanged();
