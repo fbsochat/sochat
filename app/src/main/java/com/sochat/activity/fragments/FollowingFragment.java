@@ -55,6 +55,7 @@ public class FollowingFragment extends Fragment {
     ArrayList<String> announcment =new ArrayList<>();
     ArrayList<Integer> members =new ArrayList<>();
     ArrayList<String> groupid =new ArrayList<>();
+    ArrayList<String> groupRoomNumber =new ArrayList<>();
 
     public FollowingFragment() {
         // Required empty public constructor
@@ -161,7 +162,7 @@ public class FollowingFragment extends Fragment {
                 announcment.add(group.getGroupAbout());
                 members.add(group.getMembers().size());
                 groupid.add(group.getGroupId());
-                RoomAdapter roomAdapter= new RoomAdapter(roomname,announcment,members,groupid,FollowingFragment.this);
+                RoomAdapter roomAdapter= new RoomAdapter(roomname,announcment,members,groupid,groupRoomNumber,FollowingFragment.this);
                 recyclerView.setAdapter(roomAdapter);
                 roomAdapter.notifyDataSetChanged();
             }

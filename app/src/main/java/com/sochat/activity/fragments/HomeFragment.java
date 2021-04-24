@@ -35,6 +35,7 @@ public class HomeFragment extends Fragment {
     ArrayList<String> roomname =new ArrayList<>();
     ArrayList<String> announcment =new ArrayList<>();
     ArrayList<Integer> members =new ArrayList<>();
+    ArrayList<String> groupRoomNumber=new ArrayList<>();
     TextView related;
     ConstraintLayout constraintLayout;
 
@@ -108,7 +109,7 @@ public class HomeFragment extends Fragment {
         }
         ArrayList<String> groupId = new ArrayList<>();
         groupId.add("lKOrSqAo1hbRBftByHr4");
-        RoomAdapter roomAdapter= new RoomAdapter(roomname,announcment,members,groupId,HomeFragment.this);
+        RoomAdapter roomAdapter= new RoomAdapter(roomname,announcment,members,groupId,groupRoomNumber,HomeFragment.this);
         recyclerView.setAdapter(roomAdapter);
         roomAdapter.notifyDataSetChanged();
 
