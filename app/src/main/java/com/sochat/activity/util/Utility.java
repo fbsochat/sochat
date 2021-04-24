@@ -7,6 +7,7 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
 
 import com.sochat.activity.MyApplication;
 
@@ -114,6 +115,10 @@ public class Utility {
         if (imm != null) {
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+    }
+
+    public static void displayRoundImageFromUrl(Context mContext, String profileUrl, ImageView profileImage) {
+
     }
 
 }
