@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.sochat.activity.MyApplication;
 
@@ -101,6 +103,17 @@ public class Utility {
         SharedPreferences sharedPreferences = MyApplication.getContext().getSharedPreferences("sharedPrefs", MODE_PRIVATE);
         String userId = sharedPreferences.getString(Constants.USER_ID, "");
         return userId;
+    }
+
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        View view = activity.getCurrentFocus();
+        if (view == null) {
+            view = new View(activity);
+        }
+        if (imm != null) {
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
 }

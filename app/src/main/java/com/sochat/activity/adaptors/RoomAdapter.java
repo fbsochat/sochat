@@ -1,30 +1,22 @@
 package com.sochat.activity.adaptors;
 
 import android.content.Intent;
-import android.util.Log;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.Timestamp;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.sochat.ChatActivity;
 import com.sochat.R;
 import com.sochat.activity.MyApplication;
-import com.sochat.activity.api.MessageHelper;
-import com.sochat.activity.fragments.HomeFragment;
-import com.sochat.activity.fragments.RelatedFragment;
+import com.sochat.activity.util.Constants;
 import com.sochat.activity.util.Utility;
 
-import java.sql.Time;
 import java.util.ArrayList;
 
 import static android.content.Intent.FLAG_ACTIVITY_MULTIPLE_TASK;
@@ -60,7 +52,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewClass> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewClass holder, int position) {
-        String userid = Utility.getSharedPreferencesUserId();
+//        String userid = Utility.getSharedPreferencesUserId();
 
         holder.roomname.setText(roomname.get(position));
         holder.announcment.setText(announcment.get(position));
@@ -79,7 +71,11 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewClass> {
 
                 */
                 Intent intent = new Intent(MyApplication.getContext(), ChatActivity.class);
-                intent.putExtra("groupid",groupid.get(position));
+                Bundle bundle = new Bundle();
+                bundle.putString(Constants.GROUP_ID,groupid.get(position));
+                bundle.putString(Constants.MEMBERS, String.valueOf(members.get(position)));
+                bundle.putString(Constants.GROUP_ROOM_NAME, roomname.get(position));
+                intent.putExtras(bundle);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|FLAG_ACTIVITY_MULTIPLE_TASK);
                 MyApplication.getContext().startActivity(intent);
 
