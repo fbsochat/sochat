@@ -1,6 +1,7 @@
 package com.sochat;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.sochat.activity.api.MessageHelper;
+import com.sochat.activity.fragments.ExitFragment;
 import com.sochat.activity.interfaces.OnKeyboardVisibilityListener;
 import com.sochat.activity.util.Constants;
 import com.sochat.activity.util.Utility;
@@ -27,7 +29,7 @@ import com.google.firebase.Timestamp;
 
 public class ChatActivity extends AppCompatActivity  implements OnKeyboardVisibilityListener {
 
-    TextView textViewChat;
+    TextView textViewChat,exit;
     CardView cardViewChat;
     Button chatBtton;
     EditText editTextMessage;
@@ -53,6 +55,7 @@ public class ChatActivity extends AppCompatActivity  implements OnKeyboardVisibi
         cardViewChat = findViewById(R.id.card_Chat);
         chatBtton = findViewById(R.id.btn_Send);
         editTextMessage = findViewById(R.id.et_Message);
+        exit=findViewById(R.id.tv_ExitIcon);
         setKeyboardVisibilityListener(ChatActivity.this);
         textViewChat.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,6 +83,14 @@ public class ChatActivity extends AppCompatActivity  implements OnKeyboardVisibi
                 }
             }
         });
+
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(ChatActivity.this, ExitFragment.class);
+                startActivity(i);
+            }
+        });
     }
 
     private void setKeyboardVisibilityListener(final OnKeyboardVisibilityListener onKeyboardVisibilityListener) {
@@ -99,7 +110,7 @@ public class ChatActivity extends AppCompatActivity  implements OnKeyboardVisibi
                 boolean isShown = heightDiff >= estimatedKeyboardHeight;
 
                 if (isShown == alreadyOpen) {
-                    Log.i("Keyboard state", "Ignoring global layout change...");
+                    //Log.i("Keyboard state", "Ignoring global layout change...");
                     return;
                 }
                 alreadyOpen = isShown;
@@ -110,7 +121,7 @@ public class ChatActivity extends AppCompatActivity  implements OnKeyboardVisibi
 
     @Override
     public void onVisibilityChanged(boolean visible) {
-        Toast.makeText(ChatActivity.this, visible ? "Keyboard is active" : "Keyboard is Inactive", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(ChatActivity.this, visible ? "Keyboard is active" : "Keyboard is Inactive", Toast.LENGTH_SHORT).show();
         if(visible){
 
         }else{
