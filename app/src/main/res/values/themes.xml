@@ -23,7 +23,7 @@
 
     <style name="Theme.SoChat.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-<!--    dialogbox customization-->
+    <!--    dialogbox customization-->
     <style name="Custom" parent="android:Theme.DeviceDefault.Dialog">
         <item name="DialogTitleAppearance">@android:style/TextAppearance.Medium</item>
         <item name="DialogTitleText">Updating…</item>

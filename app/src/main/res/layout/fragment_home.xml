@@ -6,12 +6,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".activity.fragments.HomeFragment"
     android:background="@drawable/bg_phoneverification">
-
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cons_full"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cons_Appbar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/white"
+        app:layout_constraintTop_toTopOf="parent"
         >
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/Appbar"
@@ -116,6 +121,13 @@
     <FrameLayout
         android:layout_below="@+id/cons_Appbar"
         android:id="@+id/home_FrameContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/frame2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />

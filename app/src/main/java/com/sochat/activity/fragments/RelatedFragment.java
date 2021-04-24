@@ -12,6 +12,8 @@ import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TableLayout;
 
 import com.google.android.material.tabs.TabItem;
@@ -21,6 +23,10 @@ import com.sochat.activity.adaptors.ViewPageAdapter;
 
 
 public class RelatedFragment extends Fragment {
+
+    EditText roomname,welcome;
+    Button submit;
+    String name,announsment;
 
     private ViewPageAdapter adapter;
     private TabLayout tabLayout;
@@ -70,6 +76,22 @@ public class RelatedFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         viewPager = (ViewPager)getActivity().findViewById(R.id.related_viewpager);
         tabLayout = (TabLayout) getActivity().findViewById(R.id.tabLayout);
+        roomname=(EditText)getActivity().findViewById(R.id.et_CreateRoom);
+        welcome=(EditText)getActivity().findViewById(R.id.et_WelcomeNote);
+        submit=(Button)getActivity().findViewById(R.id.btn_Submit);
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                name=roomname.getText().toString().trim();
+                announsment=welcome.getText().toString().trim();
+
+
+
+            }
+        });
+
 
         adapter = new ViewPageAdapter(getActivity().getSupportFragmentManager());
         adapter.addFragment(new RecentFragment(), "Recent");
@@ -95,18 +117,5 @@ public class RelatedFragment extends Fragment {
             }
         });
     }
-    /*private void highLightCurrentTab(int position) {
-        for (int i = 0; i < tabLayout.getTabCount(); i++) {
-            TabLayout.Tab tab = tabLayout.getTabAt(i);
-            assert tab != null;
-            tab.setCustomView(null);
-            tab.setCustomView(adapter.getTabView(i));
-        }
 
-        TabLayout.Tab tab = tabLayout.getTabAt(position);
-        assert tab != null;
-        tab.setCustomView(null);
-        tab.setCustomView(adapter.getSelectedTabView(position));
-    }
-     */
 }

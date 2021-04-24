@@ -103,10 +103,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
             edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent i = new Intent(getActivity(), EditProfileFragment.class);
-                    startActivity(i);
+
                 }
             });
         }
+
     }
 }

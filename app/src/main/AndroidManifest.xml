@@ -3,7 +3,7 @@
     package="com.sochat">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
@@ -14,6 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SoChat">
+        <activity android:name=".ChatActivity"></activity>
         <activity android:name=".activity.OtpActivity" />
         <activity android:name=".activity.PhoneVerificationActivity" />
         <activity
@@ -29,8 +30,7 @@
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/Theme.SoChat.NoActionBar" >
-        </activity>
+            android:theme="@style/Theme.SoChat.NoActionBar" />
     </application>
 
 </manifest>
