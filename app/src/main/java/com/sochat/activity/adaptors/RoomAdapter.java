@@ -27,16 +27,18 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewClass> {
     public ArrayList<String> announcment;
     public ArrayList<Integer> members;
     public ArrayList<String> groupid;
+    public ArrayList<String> groupRoomNumber;
     public Fragment context;
     //ConstraintLayout constraintLayout;
 
 
 
-    public RoomAdapter(ArrayList<String> roomname, ArrayList<String> announcment, ArrayList<Integer> members, ArrayList<String> groupid, Fragment context) {
+    public RoomAdapter(ArrayList<String> roomname, ArrayList<String> announcment, ArrayList<Integer> members, ArrayList<String> groupid, ArrayList<String> groupRoomNumber, Fragment context) {
         this.roomname = roomname;
         this.announcment = announcment;
         this.members = members;
         this.groupid=groupid;
+        this.groupRoomNumber=groupRoomNumber;
         this.context=context;
     }
 
@@ -75,6 +77,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewClass> {
                 bundle.putString(Constants.GROUP_ID,groupid.get(position));
                 bundle.putString(Constants.MEMBERS, String.valueOf(members.get(position)));
                 bundle.putString(Constants.GROUP_ROOM_NAME, roomname.get(position));
+                bundle.putString(Constants.GROUP_ROOM_NUMBER, groupRoomNumber.get(position));
                 intent.putExtras(bundle);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|FLAG_ACTIVITY_MULTIPLE_TASK);
                 MyApplication.getContext().startActivity(intent);
