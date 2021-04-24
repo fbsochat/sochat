@@ -1,5 +1,6 @@
 package com.sochat.activity.adaptors;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +18,10 @@ import java.util.ArrayList;
 
 public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewClass> {
 
-    ArrayList<String> roomname;
-    ArrayList<String> announcment;
-    ArrayList<Integer> members;
-    Fragment context;
+    public ArrayList<String> roomname;
+    public ArrayList<String> announcment;
+    public ArrayList<Integer> members;
+    public Fragment context;
 
     public RoomAdapter(ArrayList<String> roomname, ArrayList<String> announcment, ArrayList<Integer> members, Fragment context) {
         this.roomname = roomname;
@@ -42,9 +43,15 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewClass> {
         holder.roomname.setText(roomname.get(position));
         holder.announcment.setText(announcment.get(position));
         holder.members.setText(String.valueOf(members.get(position)));
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Here You Do Your Click Magic
+                Log.d("Deepak","" + members.get(position));
+            }
+        });
 
-
-    }
+        }
 
     @Override
     public int getItemCount() {

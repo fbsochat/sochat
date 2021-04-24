@@ -50,7 +50,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         sharedPreferences = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
 
         phone=(Button)findViewById(R.id.btn_Phone);
@@ -174,7 +173,7 @@ public class LoginActivity extends AppCompatActivity {
         String phonenumber = firebaseUser.getPhoneNumber();
         String emailAddress = firebaseUser.getEmail();
         Integer badges = 0;
-        String country = null;
+        String country = Utility.getCountryCode(LoginActivity.this);
         Integer fans = 0;
         Integer follow = 0;
         Boolean gender = true;

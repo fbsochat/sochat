@@ -56,6 +56,10 @@ public class GroupHelper {
 
     // --- GET ---
 
+//    public static Task<DocumentSnapshot> getGroups() {
+//        return GroupHelper.getGroupCollection().document(uid).get();
+//    }
+
     public static Task<DocumentSnapshot> getGroup(String uid) {
         return GroupHelper.getGroupCollection().document(uid).get();
     }

@@ -63,7 +63,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
                              Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_profile, container, false);
-        edit=(TextView)getActivity().findViewById(R.id.tv_Edit);
+        edit=(TextView)root.findViewById(R.id.tv_Edit);
         btnLogout = (Button) root.findViewById(R.id.buttonLogout);
         btnLogout.setOnClickListener(this);
         return root;//inflater.inflate(R.layout.fragment_profile, container, false);
@@ -99,12 +99,14 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getActivity(),EditProfileFragment.class);
-                startActivity(i);
-            }
-        });
+        if(edit != null) {
+            edit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(getActivity(), EditProfileFragment.class);
+                    startActivity(i);
+                }
+            });
+        }
     }
 }

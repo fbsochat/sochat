@@ -167,7 +167,7 @@ public class OtpActivity extends AppCompatActivity {
         String phonenumber = this.phonenumber; //firebaseUser.getPhoneNumber();
         String emailAddress = null; //firebaseUser.getEmail();
         Integer badges = 0;
-        String country = null;
+        String country = Utility.getCountryCode(OtpActivity.this);
         Integer fans = 0;
         Integer follow = 0;
         Boolean gender = true;
