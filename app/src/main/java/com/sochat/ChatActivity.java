@@ -19,13 +19,20 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.sochat.activity.adaptors.MessageListAdapter;
 import com.sochat.activity.api.MessageHelper;
 import com.sochat.activity.fragments.ExitFragment;
 import com.sochat.activity.interfaces.OnKeyboardVisibilityListener;
+import com.sochat.activity.model.UserMessage;
 import com.sochat.activity.util.Constants;
 import com.sochat.activity.util.Utility;
 import com.google.firebase.Timestamp;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ChatActivity extends AppCompatActivity  implements OnKeyboardVisibilityListener {
 
@@ -37,6 +44,9 @@ public class ChatActivity extends AppCompatActivity  implements OnKeyboardVisibi
     public String members = "";
     public String group_room_name;
     String userid = "";
+    private RecyclerView mMessageRecycler;
+    List<UserMessage> messageList = null;
+    private MessageListAdapter mMessageAdapter;
 
 
     @Override
@@ -50,6 +60,14 @@ public class ChatActivity extends AppCompatActivity  implements OnKeyboardVisibi
         groupid = bundle.getString(Constants.GROUP_ID);
         members = bundle.getString(Constants.MEMBERS);
         group_room_name = bundle.getString(Constants.GROUP_ROOM_NAME);
+
+        messageList = new ArrayList<UserMessage>();
+
+        mMessageRecycler = (RecyclerView) findViewById(R.id.reyclerview_message_list);
+        mMessageAdapter = new MessageListAdapter(this, messageList);
+        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        mMessageRecycler.setLayoutManager(linearLayoutManager);
+        mMessageRecycler.setAdapter(mMessageAdapter);
 
         textViewChat = findViewById(R.id.tv_chat);
         cardViewChat = findViewById(R.id.card_Chat);
@@ -80,6 +98,10 @@ public class ChatActivity extends AppCompatActivity  implements OnKeyboardVisibi
                     String msg = editTextMessage.getText().toString().trim();
                     Timestamp sentAt = Timestamp.now();
                     MessageHelper.saveMessage(msg,sentAt,userid,groupid);
+                    UserMessage userMessage = new UserMessage();
+                    userMessage.setMsgSent(true);
+                    userMessage.setMessage(msg);
+                    messageList.add(userMessage);
                 }
             }
         });
