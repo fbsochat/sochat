@@ -10,4 +10,6 @@
     <color name="Liner">#00F0FF</color>
     <color name="background">#ECE5DD</color>
     <color name="background_gray">#DFDEDE</color>
+
+    <color name="spots_dialog_color">#ffff8800</color>
 </resources>

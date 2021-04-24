@@ -1,5 +1,6 @@
 package com.sochat.activity.fragments;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +21,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.sochat.R;
 import com.sochat.activity.adaptors.RoomAdapter;
 import com.sochat.activity.api.GroupHelper;
@@ -37,6 +43,8 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+
+import dmax.dialog.SpotsDialog;
 
 
 public class FollowingFragment extends Fragment {
@@ -102,6 +110,13 @@ public class FollowingFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         recyclerView=(RecyclerView)getActivity().findViewById(R.id.recycler_following);
 
+        AlertDialog dialog = new SpotsDialog.Builder()
+                .setContext(getActivity())
+                .setMessage(R.string.loading)
+                .setCancelable(false)
+                .build();
+
+
         firebaseAuth = FirebaseAuth.getInstance();
         mFireBaseFireStore = FirebaseFirestore.getInstance();
 
@@ -110,28 +125,24 @@ public class FollowingFragment extends Fragment {
 
         FirebaseUser user = firebaseAuth.getCurrentUser();
         if (firebaseAuth.getCurrentUser() != null) {
-
-                GroupHelper.getGroup("lKOrSqAo1hbRBftByHr4").addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        Group group = documentSnapshot.toObject(Group.class);
-
-                        ImageView imageView = (ImageView) getActivity().findViewById(R.id.img_RoomProfilePicture);
-                        Glide.with(getActivity()).load(group.getGroupPicUrl()).into(imageView);
-
-                        roomname.add(group.getName());
-                        announcment.add(group.getGroupAbout());
-                        members.add(group.getMembers().size());
-                        RoomAdapter roomAdapter= new RoomAdapter(roomname,announcment,members,FollowingFragment.this);
-                        recyclerView.setAdapter(roomAdapter);
-                        roomAdapter.notifyDataSetChanged();
+            dialog.show();
+            GroupHelper.getGroups().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        dialog.dismiss();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            Log.d("GroupIds: ",document.getId());
+                            getGroupDetails(document.getId());
+                        }
+                    } else {
+                        dialog.dismiss();
+                        Log.d(FollowingFragment.class.getName(), "Error getting documents: ", task.getException());
                     }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
+                }
+            });
+
+
             }
 //        try {
 //            JSONObject jsonObject = new JSONObject(JsonDataFromAssets());
@@ -147,6 +158,30 @@ public class FollowingFragment extends Fragment {
 //            e.printStackTrace();
 //        }
 
+    }
+    //"lKOrSqAo1hbRBftByHr4"
+    public void getGroupDetails(String groupId){
+        GroupHelper.getGroup(groupId).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                Group group = documentSnapshot.toObject(Group.class);
+
+                ImageView imageView = (ImageView) getActivity().findViewById(R.id.img_RoomProfilePicture);
+                Glide.with(getActivity()).load(group.getGroupPicUrl()).into(imageView);
+
+                roomname.add(group.getName());
+                announcment.add(group.getGroupAbout());
+                members.add(group.getMembers().size());
+                RoomAdapter roomAdapter= new RoomAdapter(roomname,announcment,members,FollowingFragment.this);
+                recyclerView.setAdapter(roomAdapter);
+                roomAdapter.notifyDataSetChanged();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private String JsonDataFromAssets() {

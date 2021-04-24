@@ -6,8 +6,8 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.sochat.activity.model.Group;
-import com.sochat.activity.model.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,9 +56,9 @@ public class GroupHelper {
 
     // --- GET ---
 
-//    public static Task<DocumentSnapshot> getGroups() {
-//        return GroupHelper.getGroupCollection().document(uid).get();
-//    }
+    public static Task<QuerySnapshot> getGroups() {
+        return GroupHelper.getGroupCollection().get();
+    }
 
     public static Task<DocumentSnapshot> getGroup(String uid) {
         return GroupHelper.getGroupCollection().document(uid).get();
