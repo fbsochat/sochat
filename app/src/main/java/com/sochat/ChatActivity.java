@@ -138,6 +138,8 @@ public class ChatActivity extends AppCompatActivity  implements OnKeyboardVisibi
                             Toast.makeText(ChatActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     });
+                    //empty textbox
+                    editTextMessage.setText("");
                 }
             }
         });
