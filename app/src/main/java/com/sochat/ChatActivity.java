@@ -14,18 +14,32 @@ import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.sochat.activity.adaptors.MessageListAdapter;
+import com.sochat.activity.adaptors.RoomAdapter;
 import com.sochat.activity.api.MessageHelper;
 import com.sochat.activity.fragments.ExitFragment;
+import com.sochat.activity.fragments.FollowingFragment;
 import com.sochat.activity.interfaces.OnKeyboardVisibilityListener;
+import com.sochat.activity.model.Group;
+import com.sochat.activity.model.Message;
 import com.sochat.activity.model.UserMessage;
 import com.sochat.activity.util.Constants;
 import com.sochat.activity.util.Utility;
@@ -95,13 +109,35 @@ public class ChatActivity extends AppCompatActivity  implements OnKeyboardVisibi
             @Override
             public void onClick(View v) {
                 if(!TextUtils.isEmpty(editTextMessage.getText())){
+                    // to get values
                     String msg = editTextMessage.getText().toString().trim();
                     Timestamp sentAt = Timestamp.now();
+
+                    // to send message at db
                     MessageHelper.saveMessage(msg,sentAt,userid,groupid);
+
+                    // your type message to show in chat window
                     UserMessage userMessage = new UserMessage();
                     userMessage.setMsgSent(true);
                     userMessage.setMessage(msg);
                     messageList.add(userMessage);
+
+                    MessageHelper.getMessages(groupid).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            Message message = documentSnapshot.toObject(Message.class);
+                            UserMessage userMessage = new UserMessage();
+                            userMessage.setMsgSent(true);
+                            userMessage.setMessage(message.getMessage());
+                            messageList.add(userMessage);
+                            mMessageAdapter.notifyDataSetChanged();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(ChatActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    });
                 }
             }
         });
