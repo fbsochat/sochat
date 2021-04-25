@@ -113,7 +113,7 @@ public class ChatActivity extends AppCompatActivity  implements OnKeyboardVisibi
             @Override
             public void onClick(View v) {
                 if(!TextUtils.isEmpty(editTextMessage.getText())){
-//                    messageList.clear();
+                    messageList.clear();
                     // to get values
                     String msg = editTextMessage.getText().toString().trim();
                     Timestamp sentAt = Timestamp.now();
@@ -226,13 +226,13 @@ public class ChatActivity extends AppCompatActivity  implements OnKeyboardVisibi
 
     @Override
     protected void onPause() {
-
+        super.onPause();
         // hide the keyboard in order to avoid getTextBeforeCursor on inactive InputConnection
         InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 
         inputMethodManager.hideSoftInputFromWindow(editTextMessage.getWindowToken(), 0);
+        Utility.hideKeyboard(ChatActivity.this);
 
-        super.onPause();
     }
 
     @Override
