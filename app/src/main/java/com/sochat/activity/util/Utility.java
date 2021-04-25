@@ -94,6 +94,20 @@ public class Utility {
         prefsEditor.apply();
     }
 
+    public static void setCurrentUserName(String userName) {
+
+        SharedPreferences myPrefs = MyApplication.getContext().getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor prefsEditor = myPrefs.edit();
+        prefsEditor.putString(Constants.USER_NAME, userName);
+        prefsEditor.apply();
+    }
+
+    public static String getSharedPreferencesUserName(){
+        SharedPreferences sharedPreferences = MyApplication.getContext().getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+        String userName = sharedPreferences.getString(Constants.USER_NAME, "");
+        return userName;
+    }
+
     public static String getSharedPreferencesUserId(Activity activity){
         SharedPreferences sharedPreferences = activity.getSharedPreferences("sharedPrefs", MODE_PRIVATE);
         String userId = sharedPreferences.getString(Constants.USER_ID, "");

@@ -12,4 +12,5 @@
     <color name="background_gray">#DFDEDE</color>
 
     <color name="spots_dialog_color">#ffff8800</color>
+    <color name="color_transparent">#000005</color>
 </resources>

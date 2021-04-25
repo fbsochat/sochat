@@ -29,17 +29,20 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.sochat.activity.adaptors.MessageListAdapter;
 import com.sochat.activity.adaptors.RoomAdapter;
 import com.sochat.activity.api.MessageHelper;
+import com.sochat.activity.api.UserHelper;
 import com.sochat.activity.fragments.ExitFragment;
 import com.sochat.activity.fragments.FollowingFragment;
 import com.sochat.activity.interfaces.OnKeyboardVisibilityListener;
 import com.sochat.activity.model.Group;
 import com.sochat.activity.model.Message;
+import com.sochat.activity.model.User;
 import com.sochat.activity.model.UserMessage;
 import com.sochat.activity.util.Constants;
 import com.sochat.activity.util.Utility;
@@ -47,6 +50,7 @@ import com.google.firebase.Timestamp;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ChatActivity extends AppCompatActivity  implements OnKeyboardVisibilityListener {
 
@@ -116,28 +120,60 @@ public class ChatActivity extends AppCompatActivity  implements OnKeyboardVisibi
                     // to send message at db
                     MessageHelper.saveMessage(msg,sentAt,userid,groupid);
 
+                    final String[] userName = new String[1];
+                    CollectionReference userDetailsPath = UserHelper.getUsersCollection();
+                    userDetailsPath.get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                       @Override
+                                                       public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                           String mCurrentUserId = Utility.getSharedPreferencesUserId();
+                                                           if (task.isSuccessful()) {
+                                                               for (QueryDocumentSnapshot document : task.getResult()) {
+
+                                                                   User user = document.toObject(User.class);
+
+                                                                   if (user.getUid().equals(mCurrentUserId)) {
+                                                                       userName[0] = user.getUsername().trim();
+                                                                       return;
+                                                                   }
+                                                               }
+                                                           }
+                                                       }
+                                                   });
                     // your type message to show in chat window
                     UserMessage userMessage = new UserMessage();
                     userMessage.setMsgSent(true);
                     userMessage.setMessage(msg);
+                    userMessage.setNickname(userName[0]);
                     messageList.add(userMessage);
 
-                    MessageHelper.getMessages(groupid).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    MessageHelper.getMessages(groupid).addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
-                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            Message message = documentSnapshot.toObject(Message.class);
-                            UserMessage userMessage = new UserMessage();
-                            userMessage.setMsgSent(true);
-                            userMessage.setMessage(message.getMessage());
-                            messageList.add(userMessage);
-                            mMessageAdapter.notifyDataSetChanged();
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(ChatActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                ArrayList<Map> allMessages =new ArrayList<>();
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+//                                    Log.d("GroupIds: ",document.getId());
+                                    allMessages.add(document.getData());
+                                }
+                                for (int counter = 0; counter < allMessages.size(); counter++) {
+                                    System.out.println(allMessages.get(counter));
+                                    Map<String,Object> map = allMessages.get(counter);
+                                    for (Map.Entry<String, Object> entry : map.entrySet()) {
+                                        Log.d(ChatActivity.class.getName(),entry.getKey() + "/" + entry.getValue());
+                                        UserMessage userMessage = new UserMessage();
+                                        userMessage.setMsgSent(true);
+                                        userMessage.setMessage((String)map.get("message"));
+                                        userMessage.setNickname((String)map.get("username"));
+                                        messageList.add(userMessage);
+                                    }
+                                }
+                            } else {
+                                Log.d(ChatActivity.class.getName(), "Error getting documents: ", task.getException());
+                            }
                         }
                     });
+                    mMessageAdapter.notifyDataSetChanged();
                     //empty textbox
                     editTextMessage.setText("");
                 }
@@ -194,6 +230,17 @@ public class ChatActivity extends AppCompatActivity  implements OnKeyboardVisibi
         super.onBackPressed();
         cardViewChat.setVisibility(View.GONE);
         editTextMessage.setText("");
+    }
+
+    @Override
+    protected void onPause() {
+
+        // hide the keyboard in order to avoid getTextBeforeCursor on inactive InputConnection
+        InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        inputMethodManager.hideSoftInputFromWindow(editTextMessage.getWindowToken(), 0);
+
+        super.onPause();
     }
 
     @Override

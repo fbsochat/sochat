@@ -4,16 +4,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.sochat.activity.model.Group;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.sochat.activity.model.Message;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class MessageHelper {
     private static final String COLLECTION_NAME = "message";
+    private static final String COLLECTION_PATH_NAME = "messages";
+    private static final String COLLECTION_ORDER_BY = "sentAt";
 
     // --- COLLECTION REFERENCE ---
 
@@ -23,7 +21,7 @@ public class MessageHelper {
 
     // --- CREATE ---
 
-    public static Task<Void> saveMessage(
+    public static Task<DocumentReference> saveMessage(
             String message,
             Timestamp sentAt,
             String sentBy,
@@ -35,13 +33,13 @@ public class MessageHelper {
                  sentBy
         );
 
-        return MessageHelper.getMessageCollection().document(currentGroupId).set(msg);
+        return MessageHelper.getMessageCollection().document(currentGroupId).collection(COLLECTION_PATH_NAME).add(msg);
     }
 
     // --- GET ---
 
-    public static Task<DocumentSnapshot> getMessages(String groupid) {
-        return MessageHelper.getMessageCollection().document(groupid).get();
+    public static Task<QuerySnapshot> getMessages(String groupid) {
+        return MessageHelper.getMessageCollection().document(groupid).collection(COLLECTION_PATH_NAME).orderBy(COLLECTION_ORDER_BY).get();
     }
 
     // --- UPDATE ---

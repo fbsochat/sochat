@@ -27,4 +27,11 @@
     <string name="error_unknown_error">\"Error found while creating user\"</string>
     <string name="loading">Loading</string>
     <string name="title_activity_chat">ChatActivity</string>
+    <string name="logoimage">SoChat</string>
+    <string name="by_loggin_in_you_agree_to">By loggin in you agree to</string>
+    <string name="terms_of_service">Terms of Service</string>
+    <string name="empersond"><![CDATA[&]]></string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="enter_user_name">Enter User Name</string>
+    <string name="save">Save</string>
 </resources>
