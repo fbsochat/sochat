@@ -46,23 +46,13 @@
             android:id="@+id/btn_Submit"
             android:layout_width="80dp"
             android:layout_height="40dp"
-            android:layout_marginStart="64dp"
-            android:layout_marginTop="64dp"
-            android:text="Submit"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="44dp"
             android:background="@drawable/button_xml"
+            android:text="Submit"
             app:layout_constraintStart_toEndOf="@+id/et_CreateRoom"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="15dp"
-            android:layout_marginTop="44dp"
-            android:layout_marginEnd="16dp"
-            android:text="999"
-            android:textColor="@color/black"
-            android:textSize="10sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
