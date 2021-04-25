@@ -113,39 +113,15 @@ public class ChatActivity extends AppCompatActivity  implements OnKeyboardVisibi
             @Override
             public void onClick(View v) {
                 if(!TextUtils.isEmpty(editTextMessage.getText())){
+//                    messageList.clear();
                     // to get values
                     String msg = editTextMessage.getText().toString().trim();
                     Timestamp sentAt = Timestamp.now();
+                    String username = Utility.getSharedPreferencesUserName();
+                    String userid = Utility.getSharedPreferencesUserId();
 
                     // to send message at db
-                    MessageHelper.saveMessage(msg,sentAt,userid,groupid);
-
-                    final String[] userName = new String[1];
-                    CollectionReference userDetailsPath = UserHelper.getUsersCollection();
-                    userDetailsPath.get()
-                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                                       @Override
-                                                       public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                           String mCurrentUserId = Utility.getSharedPreferencesUserId();
-                                                           if (task.isSuccessful()) {
-                                                               for (QueryDocumentSnapshot document : task.getResult()) {
-
-                                                                   User user = document.toObject(User.class);
-
-                                                                   if (user.getUid().equals(mCurrentUserId)) {
-                                                                       userName[0] = user.getUsername().trim();
-                                                                       return;
-                                                                   }
-                                                               }
-                                                           }
-                                                       }
-                                                   });
-                    // your type message to show in chat window
-                    UserMessage userMessage = new UserMessage();
-                    userMessage.setMsgSent(true);
-                    userMessage.setMessage(msg);
-                    userMessage.setNickname(userName[0]);
-                    messageList.add(userMessage);
+                    MessageHelper.saveMessage(msg,sentAt,userid,username,groupid,true);
 
                     MessageHelper.getMessages(groupid).addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
@@ -159,20 +135,36 @@ public class ChatActivity extends AppCompatActivity  implements OnKeyboardVisibi
                                 for (int counter = 0; counter < allMessages.size(); counter++) {
                                     System.out.println(allMessages.get(counter));
                                     Map<String,Object> map = allMessages.get(counter);
+                                    UserMessage userMessage = new UserMessage();
                                     for (Map.Entry<String, Object> entry : map.entrySet()) {
                                         Log.d(ChatActivity.class.getName(),entry.getKey() + "/" + entry.getValue());
-                                        UserMessage userMessage = new UserMessage();
-                                        userMessage.setMsgSent(true);
+                                        if(userid.contentEquals((String)map.get("sentBy"))){
+                                            userMessage.setMsgSent(true);
+                                        }else {
+                                            userMessage.setMsgSent(false);
+                                        }
                                         userMessage.setMessage((String)map.get("message"));
                                         userMessage.setNickname((String)map.get("username"));
-                                        messageList.add(userMessage);
+
                                     }
+                                    messageList.add(userMessage);
                                 }
+                                // your type message to show in chat window
+//                                UserMessage userMessage = new UserMessage();
+//                                userMessage.setMsgSent(true);
+//                                userMessage.setMessage(msg);
+//                                userMessage.setNickname(username);
+//                                messageList.add(userMessage);
                             } else {
                                 Log.d(ChatActivity.class.getName(), "Error getting documents: ", task.getException());
                             }
                         }
                     });
+
+
+                    if (mMessageRecycler.getAdapter().getItemCount() > 0) {
+                        mMessageRecycler.smoothScrollToPosition(mMessageRecycler.getAdapter().getItemCount() - 1);
+                    }
                     mMessageAdapter.notifyDataSetChanged();
                     //empty textbox
                     editTextMessage.setText("");

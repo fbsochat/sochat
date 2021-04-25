@@ -4,17 +4,22 @@ import com.google.firebase.Timestamp;
 
 public class Message {
 
-    String message, sentBy;
+    String message;
+    String sentBy;
+    String userName;
     Timestamp sentAt;
+    Boolean isMsgSent;
 
     public Message(){
 
     }
 
-    public Message(String message, Timestamp sentAt, String sentBy) {
+    public Message(String message, Timestamp sentAt, String sentBy,String userName,Boolean isMsgSent) {
         this.message = message;
         this.sentAt = sentAt;
         this.sentBy = sentBy;
+        this.userName = userName;
+        this.isMsgSent = isMsgSent;
     }
 
     public String getMessage() {
@@ -40,5 +45,22 @@ public class Message {
     public void setSentAt(Timestamp sentAt) {
         this.sentAt = sentAt;
     }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+    public Boolean getMsgSent() {
+        return isMsgSent;
+    }
+
+    public void setMsgSent(Boolean msgSent) {
+        isMsgSent = msgSent;
+    }
+
+
 
 }
