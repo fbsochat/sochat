@@ -138,7 +138,7 @@ public class ChatActivity extends AppCompatActivity  implements OnKeyboardVisibi
                                     UserMessage userMessage = new UserMessage();
                                     for (Map.Entry<String, Object> entry : map.entrySet()) {
                                         Log.d(ChatActivity.class.getName(),entry.getKey() + "/" + entry.getValue());
-                                        if(userid.contentEquals((String)map.get("sentBy"))){
+                                        if(userid.equalsIgnoreCase((String)map.get("sentBy"))){
                                             userMessage.setMsgSent(true);
                                         }else {
                                             userMessage.setMsgSent(false);

@@ -45,7 +45,7 @@ public class MessageHelper {
     // --- GET ---
 
     public static Task<QuerySnapshot> getMessages(String groupid) {
-        return MessageHelper.getMessageCollection().document(groupid).collection(COLLECTION_PATH_NAME).orderBy(COLLECTION_ORDER_BY, Query.Direction.ASCENDING).limit(LIMIT_TO_LAST_MSG).get();
+        return MessageHelper.getMessageCollection().document(groupid).collection(COLLECTION_PATH_NAME).orderBy(COLLECTION_ORDER_BY, Query.Direction.DESCENDING).limit(LIMIT_TO_LAST_MSG).get();
     }
 
     // --- UPDATE ---
