@@ -135,4 +135,46 @@ public class Utility {
 
     }
 
+    public static void setCurrentUserGroupName(String groupName) {
+
+        SharedPreferences myPrefs = MyApplication.getContext().getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor prefsEditor = myPrefs.edit();
+        prefsEditor.putString(Constants.GROUP_NAME, groupName);
+        prefsEditor.apply();
+    }
+
+    public static String getSharedPreferencesUserGroupName(){
+        SharedPreferences sharedPreferences = MyApplication.getContext().getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+        String groupName = sharedPreferences.getString(Constants.GROUP_NAME, "");
+        return groupName;
+    }
+
+    public static void setCurrentUserGroupWelcomeNote(String welcomeNote) {
+
+        SharedPreferences myPrefs = MyApplication.getContext().getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor prefsEditor = myPrefs.edit();
+        prefsEditor.putString(Constants.WELCOME_NOTE, welcomeNote);
+        prefsEditor.apply();
+    }
+
+    public static String getSharedPreferencesGroupWelcomeNote(){
+        SharedPreferences sharedPreferences = MyApplication.getContext().getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+        String groupName = sharedPreferences.getString(Constants.WELCOME_NOTE, "");
+        return groupName;
+    }
+
+    public static void setCurrentUserGroupMembers(String members) {
+
+        SharedPreferences myPrefs = MyApplication.getContext().getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor prefsEditor = myPrefs.edit();
+        prefsEditor.putString(Constants.MEMBERS, members);
+        prefsEditor.apply();
+    }
+
+    public static String getSharedPreferencesGroupMembers(){
+        SharedPreferences sharedPreferences = MyApplication.getContext().getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+        String groupName = sharedPreferences.getString(Constants.MEMBERS, "");
+        return groupName;
+    }
+
 }

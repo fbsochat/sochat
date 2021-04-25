@@ -9,6 +9,8 @@ public class Constants {
     public static final String MEMBERS = "members";
     public static final String GROUP_ROOM_NAME = "roomname";
     public static final String GROUP_ROOM_NUMBER = "grouproomnumber";
+    public static final String GROUP_NAME = "group";
+    public static final String WELCOME_NOTE = "welcomenote";
 
 
 }
