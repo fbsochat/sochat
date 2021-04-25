@@ -31,6 +31,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -85,6 +86,7 @@ public class ChatActivity extends AppCompatActivity  implements OnKeyboardVisibi
         messageList = new ArrayList<UserMessage>();
 
         mMessageRecycler = (RecyclerView) findViewById(R.id.reyclerview_message_list);
+        mMessageRecycler.setVisibility(View.INVISIBLE);
         mMessageAdapter = new MessageListAdapter(this, messageList);
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mMessageRecycler.setLayoutManager(linearLayoutManager);
@@ -117,6 +119,7 @@ public class ChatActivity extends AppCompatActivity  implements OnKeyboardVisibi
             public void onClick(View v) {
                 if(!TextUtils.isEmpty(editTextMessage.getText())){
                     messageList.clear();
+                    mMessageRecycler.setVisibility(View.VISIBLE);
                     // to get values
                     String msg = editTextMessage.getText().toString().trim();
                     Timestamp sentAt = Timestamp.now();
@@ -183,46 +186,44 @@ public class ChatActivity extends AppCompatActivity  implements OnKeyboardVisibi
             }
         });
 
-        MessageHelper.getMessageCollection()
+        MessageHelper.getMessagesNewUpdate(groupid)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
-                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots,
+                    public void onEvent(@Nullable QuerySnapshot snapshots,
                                         @Nullable FirebaseFirestoreException e) {
-
+//                        messageList.clear();
                         if (e != null) {
-                            Log.d("YourTag", "Listen failed.", e);
+                            Log.d(ChatActivity.class.getName(), "listen:error", e);
                             return;
                         }
-                        ArrayList<Map> allMessages =new ArrayList<>();
-                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-//                                    Log.d("GroupIds: ",document.getId());
-                            allMessages.add(document.getData());
-                        }
-                        for (int counter = 0; counter < allMessages.size(); counter++) {
-                            System.out.println(allMessages.get(counter));
-                            Map<String,Object> map = allMessages.get(counter);
-                            UserMessage userMessage = new UserMessage();
-                            for (Map.Entry<String, Object> entry : map.entrySet()) {
-                                Log.d(ChatActivity.class.getName(),entry.getKey() + "/" + entry.getValue());
-                                if(userid.equalsIgnoreCase((String)map.get("sentBy"))){
-                                    userMessage.setMsgSent(true);
-                                }else {
-                                    userMessage.setMsgSent(false);
+                        ArrayList<Map> allMessages = new ArrayList<>();
+                        for (DocumentChange dc : snapshots.getDocumentChanges()) {
+                            if (dc.getType() == DocumentChange.Type.ADDED) {
+                                Log.d(ChatActivity.class.getName(), "New Changes: " + dc.getDocument().getData());
+                                allMessages.add(dc.getDocument().getData());
+
+                                for (int counter = 0; counter < allMessages.size(); counter++) {
+                                    System.out.println(allMessages.get(counter));
+                                    Map<String, Object> map = allMessages.get(counter);
+                                    UserMessage userMessage = new UserMessage();
+                                    for (Map.Entry<String, Object> entry : map.entrySet()) {
+                                        Log.d(ChatActivity.class.getName(), entry.getKey() + "/" + entry.getValue());
+                                        if (userid.equalsIgnoreCase((String) map.get("sentBy"))) {
+                                            userMessage.setMsgSent(true);
+                                        } else {
+                                            userMessage.setMsgSent(false);
+                                        }
+                                        userMessage.setMessage((String) map.get("message"));
+                                        userMessage.setNickname((String) map.get("username"));
+
+                                    }
+                                        messageList.add(userMessage);
+
                                 }
-                                userMessage.setMessage((String)map.get("message"));
-                                userMessage.setNickname((String)map.get("username"));
+                                Log.d("YourTag", "messageList: " + messageList);
 
                             }
-                            messageList.add(userMessage);
                         }
-//                        for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
-//                            if (doc.exists()){
-//                                Message message = doc.toObject(Message.class);
-//                                messageList.add(message);
-//                                mAdapter.notifyDataSetChanged();
-//                            }
-//                        }
-                        Log.d("YourTag", "messageList: " + messageList);
                         if (mMessageRecycler.getAdapter().getItemCount() > 0) {
                             mMessageRecycler.smoothScrollToPosition(mMessageRecycler.getAdapter().getItemCount() - 1);
                         }
@@ -231,6 +232,54 @@ public class ChatActivity extends AppCompatActivity  implements OnKeyboardVisibi
                         editTextMessage.setText("");
                     }
                 });
+
+//                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots,
+//                                        @Nullable FirebaseFirestoreException e) {
+//
+//                        if (e != null) {
+//                            Log.d("YourTag", "Listen failed.", e);
+//                            return;
+//                        }
+//                        ArrayList<Map> allMessages =new ArrayList<>();
+//                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+////                                    Log.d("GroupIds: ",document.getId());
+//                            allMessages.add(document.getData());
+//                        }
+//                        for (int counter = 0; counter < allMessages.size(); counter++) {
+//                            System.out.println(allMessages.get(counter));
+//                            Map<String,Object> map = allMessages.get(counter);
+//                            UserMessage userMessage = new UserMessage();
+//                            for (Map.Entry<String, Object> entry : map.entrySet()) {
+//                                Log.d(ChatActivity.class.getName(),entry.getKey() + "/" + entry.getValue());
+//                                if(userid.equalsIgnoreCase((String)map.get("sentBy"))){
+//                                    userMessage.setMsgSent(true);
+//                                }else {
+//                                    userMessage.setMsgSent(false);
+//                                }
+//                                userMessage.setMessage((String)map.get("message"));
+//                                userMessage.setNickname((String)map.get("username"));
+//
+//                            }
+//                            messageList.add(userMessage);
+//                        }
+////                        for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+////                            if (doc.exists()){
+////                                Message message = doc.toObject(Message.class);
+////                                messageList.add(message);
+////                                mAdapter.notifyDataSetChanged();
+////                            }
+////                        }
+//                        Log.d("YourTag", "messageList: " + messageList);
+//                        if (mMessageRecycler.getAdapter().getItemCount() > 0) {
+//                            mMessageRecycler.smoothScrollToPosition(mMessageRecycler.getAdapter().getItemCount() - 1);
+//                        }
+//                        mMessageAdapter.notifyDataSetChanged();
+//                        //empty textbox
+//                        editTextMessage.setText("");
+//                    }
+//                });
     }
 
     private void setKeyboardVisibilityListener(final OnKeyboardVisibilityListener onKeyboardVisibilityListener) {

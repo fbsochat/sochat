@@ -48,6 +48,10 @@ public class MessageHelper {
         return MessageHelper.getMessageCollection().document(groupid).collection(COLLECTION_PATH_NAME).orderBy(COLLECTION_ORDER_BY, Query.Direction.DESCENDING).limit(LIMIT_TO_LAST_MSG).get();
     }
 
+    public static CollectionReference getMessagesNewUpdate(String groupid) {
+        return MessageHelper.getMessageCollection().document(groupid).collection(COLLECTION_PATH_NAME);//.orderBy(COLLECTION_ORDER_BY, Query.Direction.DESCENDING).limit(LIMIT_TO_LAST_MSG).getFirestore().collection(COLLECTION_PATH_NAME);
+    }
+
     // --- UPDATE ---
 
     public static Task<Void> updateMessage(Message msg, String groupid) {
