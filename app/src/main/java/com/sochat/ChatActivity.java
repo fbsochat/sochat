@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -31,6 +32,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.sochat.activity.adaptors.MessageListAdapter;
@@ -179,6 +182,55 @@ public class ChatActivity extends AppCompatActivity  implements OnKeyboardVisibi
                 startActivity(i);
             }
         });
+
+        MessageHelper.getMessageCollection()
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots,
+                                        @Nullable FirebaseFirestoreException e) {
+
+                        if (e != null) {
+                            Log.d("YourTag", "Listen failed.", e);
+                            return;
+                        }
+                        ArrayList<Map> allMessages =new ArrayList<>();
+                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+//                                    Log.d("GroupIds: ",document.getId());
+                            allMessages.add(document.getData());
+                        }
+                        for (int counter = 0; counter < allMessages.size(); counter++) {
+                            System.out.println(allMessages.get(counter));
+                            Map<String,Object> map = allMessages.get(counter);
+                            UserMessage userMessage = new UserMessage();
+                            for (Map.Entry<String, Object> entry : map.entrySet()) {
+                                Log.d(ChatActivity.class.getName(),entry.getKey() + "/" + entry.getValue());
+                                if(userid.equalsIgnoreCase((String)map.get("sentBy"))){
+                                    userMessage.setMsgSent(true);
+                                }else {
+                                    userMessage.setMsgSent(false);
+                                }
+                                userMessage.setMessage((String)map.get("message"));
+                                userMessage.setNickname((String)map.get("username"));
+
+                            }
+                            messageList.add(userMessage);
+                        }
+//                        for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+//                            if (doc.exists()){
+//                                Message message = doc.toObject(Message.class);
+//                                messageList.add(message);
+//                                mAdapter.notifyDataSetChanged();
+//                            }
+//                        }
+                        Log.d("YourTag", "messageList: " + messageList);
+                        if (mMessageRecycler.getAdapter().getItemCount() > 0) {
+                            mMessageRecycler.smoothScrollToPosition(mMessageRecycler.getAdapter().getItemCount() - 1);
+                        }
+                        mMessageAdapter.notifyDataSetChanged();
+                        //empty textbox
+                        editTextMessage.setText("");
+                    }
+                });
     }
 
     private void setKeyboardVisibilityListener(final OnKeyboardVisibilityListener onKeyboardVisibilityListener) {
