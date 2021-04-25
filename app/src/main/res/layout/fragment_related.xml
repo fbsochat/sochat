@@ -41,7 +41,6 @@
             app:layout_constraintStart_toEndOf="@+id/imageView2"
             app:layout_constraintTop_toBottomOf="@+id/et_CreateRoom" />
 
-
         <Button
             android:id="@+id/btn_Submit"
             android:layout_width="80dp"
@@ -50,9 +49,9 @@
             android:layout_marginTop="44dp"
             android:background="@drawable/button_xml"
             android:text="Submit"
+            android:clickable="true"
             app:layout_constraintStart_toEndOf="@+id/et_CreateRoom"
             app:layout_constraintTop_toTopOf="parent" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -63,12 +62,10 @@
         android:layout_below="@+id/cons_Related"
         android:background="@color/white"
         />
-
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/related_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/tabLayout"
         />
-
 </RelativeLayout>
